@@ -1,4 +1,8 @@
+// Test for a connection to the html page
 console.log('connected')
+
+// enable JS strict mode to enforce stricter parsing
+'use strict';
 
 // local storage serves as database
 const localStorage = window.localStorage
@@ -7,13 +11,20 @@ const localStorage = window.localStorage
 READ (cRud) operation and helper functions
 */
 
-// Function to get and return all projects from local storage db
+/**
+ * Funtion to get and return all projects from local storage db
+ * Takes no prameters
+ * @return {Array} all saved projects
+ */
 const getAllProjects = () => {
  const savedProjects = JSON.parse(localStorage.getItem('projects')) || []
  return savedProjects
 }
 
-// Function to read and display all projects
+/**
+ * Funtion to READ and display all projects
+ * Takes no prameters and returns nothing
+ */
 const displayAllProjects = () => {
  // get all projects from db
  const savedProjects = getAllProjects()
@@ -27,6 +38,13 @@ const displayAllProjects = () => {
  }
 }
 
+/**
+ * Helper Function to insert project record into project table
+ * in order to display (READ) the data
+ * @param {Object} project Object that contains the target project details
+ * @param {Number} rowIndex Number that represents the row index to insert data
+ * Returns nothing
+ */
 // function to insert a row into the projects table with the provided project details
 const insertProjectRecord = (project, rowIndex) => {
 
@@ -70,6 +88,11 @@ const insertProjectRecord = (project, rowIndex) => {
 UPDATE (crUd) operation and helper functions
 */
 
+/**
+ * Function to UPDATE (edit) the target project
+ * @param {projectRowIndex} projectRowIndex Number that represents the row index of record to edit
+ * Returns nothing
+ */
 const editProject = (projectRowIndex) => {
 
  // grab all the form elements
@@ -107,6 +130,11 @@ const editProject = (projectRowIndex) => {
 
 }
 
+/**
+ * Function to submit the edit to update the record in the database
+ * @param {projectIndex} projectIndex Number that represents the location of record in database to edit
+ * Returns nothing
+ */
 const submitEdit = (projectIndex) => {
 
  // get all the saved projects
@@ -148,7 +176,11 @@ const submitEdit = (projectIndex) => {
 Seed Hard Coded Data for Testing
 */
 
-// Function to generate seed data from hardcoded information
+/**
+ * Function to generate seed data from hardcoded information
+ * Takes no paramters
+ * Returns nothing
+ */
 const generateSeedData = () => {
 
  // arrays to store project details
