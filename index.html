@@ -8,6 +8,42 @@
 </head>
 <body>
 
+  <!-- basic UI for editing a specific project -->
+  <legend>Edit Form</legend>
+  <form id="editForm">
+    <label for="editProjectID"></label>
+    <input type="text" name="editProjectID" id="editProjectID" disabled>
+    <label for="editProjectName">Project Name</label>
+    <input type="text" id="editProjectName" name="editProjectName">
+    <label for="editProjectStartDate">Start Date</label>
+    <input type="date" id="editProjectStartDate" name="editProjectStartDate">
+    <label for="editProjectEndDate">End Date</label>
+    <input type="date" id="editProjectEndDate" name="editProjectEndDate">
+    <label for="editProjectPriority">Project Priority</label>
+    <select name="editProjectPriority" id="editProjectPriority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+    <label for="editProjectStatus">Project Status</label>
+    <select name="editProjectStatus" id="editProjectStatus">
+      <option value="Not Started">Not Started</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+    <label for="editProjectAtRisk">At Risk</label>
+    <select name="editProjectAtRisk" id="editProjectAtRisk">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <label for="editProjectOwner">Project Owner</label>
+    <input type="text" id="editProjectOwner">
+    <label for="editProjectNotes">Project Notes</label>
+    <input type="text" id="editProjectNotes">
+  </form>
+
+  <hr>
+
   <!-- basic button to generate seed data in local storage -->
   <button id="genSeedDataBtn">Generate Seed Data</button>
 

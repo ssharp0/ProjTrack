@@ -17,20 +17,25 @@ const getAllProjects = () => {
 const displayAllProjects = () => {
  // get all projects from db
  const savedProjects = getAllProjects()
+ let rowIndex = 0
  // if there are projects, insert the record in the table for display
  if (savedProjects.length !== 0) {
   savedProjects.forEach(project => {
-   insertProjectRecord(project)
+   insertProjectRecord(project, rowIndex)
+   rowIndex += 1
   })
  }
 }
 
 // function to insert a row into the projects table with the provided project details
-const insertProjectRecord = (project) => {
+const insertProjectRecord = (project, rowIndex) => {
 
  // get the project table element and insert a row at the end
  const projectTable = document.getElementById("projectsTable")
  let row = projectTable.insertRow(-1)
+
+ // assign data id to element
+ row.dataset.id = rowIndex
 
  // insert all the cells to display data
  let projectID = row.insertCell(0)
@@ -42,6 +47,7 @@ const insertProjectRecord = (project) => {
  let projectAtRisk = row.insertCell(6)
  let projectOwner = row.insertCell(7)
  let projectNotes = row.insertCell(8)
+ let editButton = row.insertCell(9)
 
  // display the associated db value from the project object
  projectID.innerText = project.projectID
@@ -53,6 +59,88 @@ const insertProjectRecord = (project) => {
  projectAtRisk.innerText = project.projectAtRisk
  projectOwner.innerText = project.projectOwner
  projectNotes.innerText = project.projectNotes
+
+ // insert an edit button for the row
+ let editBtn = `<button onclick="editProject(${rowIndex})">Edit</button>`
+ editButton.innerHTML = editBtn
+
+}
+
+/*
+UPDATE (crUd) operation and helper functions
+*/
+
+const editProject = (projectRowIndex) => {
+
+ // grab all the form elements
+ const editForm = document.getElementById("editForm")
+ let projectID = document.getElementById("editProjectID")
+ let projectName = document.getElementById("editProjectName")
+ let projectStartDate = document.getElementById("editProjectStartDate")
+ let projectEndDate = document.getElementById("editProjectEndDate")
+ let projectPriority = document.getElementById("editProjectPriority")
+ let projectStatus = document.getElementById("editProjectStatus")
+ let projectAtRisk = document.getElementById("editProjectAtRisk")
+ let projectOwner = document.getElementById("editProjectOwner")
+ let projectNotes = document.getElementById("editProjectNotes")
+
+ // find the specific project to edit
+ let savedProjects = getAllProjects()
+ let target = savedProjects.filter((project, index) => index.toString() === projectRowIndex.toString())
+
+ // add the project's data values to the edit form
+ projectID.value = target[0].projectID
+ projectName.value = target[0].projectName
+ projectStartDate.value = target[0].projectStartDate
+ projectEndDate.value = target[0].projectEndDate
+ projectPriority.value = target[0].projectPriority
+ projectStatus.value = target[0].projectStatus
+ projectAtRisk.value = target[0].projectAtRisk
+ projectOwner.value = target[0].projectOwner
+ projectNotes.value = target[0].projectNotes
+
+ // add a button to the edit form
+ let button = `<button onclick="submitEdit(${projectRowIndex})">Confirm Edit</button>`
+ editButtonEl = document.createElement("span")
+ editButtonEl.innerHTML = button
+ editForm.append(editButtonEl)
+
+}
+
+const submitEdit = (projectIndex) => {
+
+ // get all the saved projects
+ let savedProjects = getAllProjects()
+
+ // grab the updated information
+ let projectID = document.getElementById("editProjectID")
+ let projectName = document.getElementById("editProjectName")
+ let projectStartDate = document.getElementById("editProjectStartDate")
+ let projectEndDate = document.getElementById("editProjectEndDate")
+ let projectPriority = document.getElementById("editProjectPriority")
+ let projectStatus = document.getElementById("editProjectStatus")
+ let projectAtRisk = document.getElementById("editProjectAtRisk")
+ let projectOwner = document.getElementById("editProjectOwner")
+ let projectNotes = document.getElementById("editProjectNotes")
+
+ // update the particular project with updated details
+ savedProjects[projectIndex] = {
+  "projectID": projectID.value,
+  "projectName": projectName.value,
+  "projectStartDate": projectStartDate.value,
+  "projectEndDate": projectEndDate.value,
+  "projectPriority": projectPriority.value,
+  "projectStatus": projectStatus.value,
+  "projectAtRisk": projectAtRisk.value,
+  "projectOwner": projectOwner.value,
+  "projectNotes": projectNotes.value
+ }
+
+ // update the DB with the updated details
+ localStorage.setItem('projects', JSON.stringify(savedProjects))
+
+ // alert user to notify the action was completed
+ alert("Project has been updated!")
 
 }
 
@@ -66,8 +154,8 @@ const generateSeedData = () => {
  // arrays to store project details
  let projectIDs = ["001","002","003"]
  let projectNames = ["Create Repo", "Setup Server","Setup DB"]
- let projectStartDates = ["06/08/23", "06/23/23", "06/29/23"]
- let projectEndDates = ["06/21/23", "06/28/23", "07/08/23"]
+ let projectStartDates = ["2023-06-08", "2023-06-23", "2023-06-29"]
+ let projectEndDates = ["2023-06-21", "2023-06-28", "2023-07-08"]
  let projectPriorities = ["Low", "High", "Medium"]
  let projectStatuses = ["Completed", "In Progress", "In Progress"]
  let projectAtRisk = ["No", "Yes", "No"]
