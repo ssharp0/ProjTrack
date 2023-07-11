@@ -214,6 +214,7 @@ const generateSeedData = () => {
   // push the project to the saved projects and set in the database
   savedProjects.push(project)
   localStorage.setItem('projects', JSON.stringify(savedProjects))
+  location.reload()
  }
 }
 
