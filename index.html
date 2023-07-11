@@ -8,17 +8,19 @@
 </head>
 <body>
 
+  <h1>ProjTrack</h1>
+
   <!-- basic UI for editing a specific project -->
   <legend>Edit Form</legend>
   <form id="editForm">
     <label for="editProjectID"></label>
     <input type="text" name="editProjectID" id="editProjectID" disabled>
     <label for="editProjectName">Project Name</label>
-    <input type="text" id="editProjectName" name="editProjectName">
+    <input type="text" id="editProjectName" name="editProjectName" required>
     <label for="editProjectStartDate">Start Date</label>
-    <input type="date" id="editProjectStartDate" name="editProjectStartDate">
+    <input type="date" id="editProjectStartDate" name="editProjectStartDate" required>
     <label for="editProjectEndDate">End Date</label>
-    <input type="date" id="editProjectEndDate" name="editProjectEndDate">
+    <input type="date" id="editProjectEndDate" name="editProjectEndDate" required>
     <label for="editProjectPriority">Project Priority</label>
     <select name="editProjectPriority" id="editProjectPriority">
       <option value="Low">Low</option>
@@ -37,7 +39,7 @@
       <option value="No">No</option>
     </select>
     <label for="editProjectOwner">Project Owner</label>
-    <input type="text" id="editProjectOwner">
+    <input type="text" id="editProjectOwner" required>
     <label for="editProjectNotes">Project Notes</label>
     <input type="text" id="editProjectNotes">
   </form>
