@@ -10,6 +10,45 @@
 
   <h1>ProjTrack</h1>
 
+  <hr>
+
+  <!-- basic UI for creating a specific project -->
+  <legend>Create Form</legend>
+  <form id="createForm">
+    <label for="createProjectID"></label>
+    <input type="text" name="createProjectID" id="createProjectID" disabled>
+    <label for="createProjectName">Project Name</label>
+    <input type="text" id="createProjectName" name="createProjectName" required>
+    <label for="createProjectStartDate">Start Date</label>
+    <input type="date" id="createProjectStartDate" name="createProjectStartDate" required>
+    <label for="createProjectEndDate">End Date</label>
+    <input type="date" id="createProjectEndDate" name="createProjectEndDate" required>
+    <label for="createProjectPriority">Project Priority</label>
+    <select name="createProjectPriority" id="createProjectPriority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+    <label for="createProjectStatus">Project Status</label>
+    <select name="createProjectStatus" id="createProjectStatus">
+      <option value="Not Started">Not Started</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+    <label for="createProjectAtRisk">At Risk</label>
+    <select name="createProjectAtRisk" id="createProjectAtRisk">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <label for="createProjectOwner">Project Owner</label>
+    <input type="text" id="createProjectOwner" required>
+    <label for="createProjectNotes">Project Notes</label>
+    <input type="text" id="createProjectNotes">
+    <button id="createProjectBtn">Save</button>
+  </form>
+  
+  <hr>
+
   <!-- basic UI for editing a specific project -->
   <legend>Edit Form</legend>
   <form id="editForm">

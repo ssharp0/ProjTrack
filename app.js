@@ -198,13 +198,13 @@ const generateSeedData = () => {
  // for each project, create object and set it to local storage database
  for (let i = 0; i < numberOfProjects; i++) {
   // get all current projects to add current project
-  const savedProjects = getAllProjects()
+  let savedProjects = getAllProjects()
   // create the object
   const project = {
    "projectID": projectIDs[i],
    "projectName": projectNames[i],
-   "projectStartDate" : projectStartDates[i],
-   "projectEndDate" : projectEndDates[i],
+   "projectStartDate": projectStartDates[i],
+   "projectEndDate": projectEndDates[i],
    "projectPriority": projectPriorities[i],
    "projectStatus": projectStatuses[i],
    "projectAtRisk": projectAtRisk[i],
@@ -225,6 +225,81 @@ Event Listeners
 // add event listener for the button to genereate seed data
 let genSeedDataBtn = document.getElementById("genSeedDataBtn")
 genSeedDataBtn.addEventListener("click", generateSeedData)
+
+/**
+ * Function to create a new project record
+ * in order to create (CREATE) the data
+ * Takes no parameters
+ * Returns nothing
+ */
+const createProject = () => {
+
+ // grab the form information information
+ let projectID = assignID()
+ let projectName = document.getElementById("createProjectName").value
+ let projectStartDate = document.getElementById("createProjectStartDate").value
+ let projectEndDate = document.getElementById("createProjectEndDate").value
+ let projectPriority = document.getElementById("createProjectPriority").value
+ let projectStatus = document.getElementById("createProjectStatus").value
+ let projectAtRisk = document.getElementById("createProjectAtRisk").value
+ let projectOwner = document.getElementById("createProjectOwner").value
+ let projectNotes = document.getElementById("createProjectNotes").value
+
+ // get all the saved projects
+ let savedProjects = getAllProjects()
+
+ const project = {
+  "projectID": projectID,
+  "projectName": projectName,
+  "projectStartDate": projectStartDate,
+  "projectEndDate": projectEndDate,
+  "projectPriority": projectPriority,
+  "projectStatus": projectStatus,
+  "projectAtRisk": projectAtRisk,
+  "projectOwner": projectOwner,
+  "projectNotes": projectNotes
+ }
+
+ // push the project to the saved projects and set in the database
+ savedProjects.push(project)
+ localStorage.setItem('projects', JSON.stringify(savedProjects))
+
+ // alert to notify success
+ alert("success!")
+}
+
+/**
+ * Funtion to assign a project ID
+ * Takes no prameters
+ * @return {String} string representing project number
+ */
+const assignID = () => {
+ // get all the projects and initialize the first id
+ let projects = getAllProjects()
+ let id = '001'
+ // if there are saved projects, find the last ID available
+ if (projects.length !== 0) {
+  for (const key in projects) {
+   if (Object.hasOwnProperty.call(projects, key)) {
+    let element = projects[key];
+    let elementID = element.projectID
+    if (id <= elementID) {
+     id = elementID
+    }
+   }
+  }
+  // incrememnt by 1 and return the string
+  id = parseInt(id)
+  id = id += 1
+  return id.toString()
+ }
+ // otherwise there are no saved projects so assign first id
+ return id
+}
+
+// Event handler for the create project button
+let createProjectBtn = document.getElementById("createProjectBtn")
+createProjectBtn.addEventListener("click", createProject)
 
 // READ and display all project on the HTML
 document.addEventListener("DOMContentLoaded", displayAllProjects())
