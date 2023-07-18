@@ -281,18 +281,21 @@ DELETE (cruD) operation and helper functions
  */
 const deleteProject = (projectRowIndex) => {
 
- // find the specific project to delete, filter for all where it's not provided
+ // get all projects and find the project ID to get user confirmation to delete
  let savedProjects = getAllProjects()
- savedProjects = savedProjects.filter((project, index) => index.toString() !== projectRowIndex.toString())
+ let targetID = savedProjects[projectRowIndex].projectID
+ response = confirmAction(`delete project ${targetID}`)
 
- // update the local storage db
- localStorage.setItem('projects', JSON.stringify(savedProjects))
-
- // notify user of successful action
- alert("Successfully deleted the project!")
- location.reload()
+ // if the user confirms to delete then delete the record
+ if (response === 'confirmed') {
+  // exclude the selected project and update database
+  savedProjects = savedProjects.filter((project, index) => index.toString() !== projectRowIndex.toString())
+  localStorage.setItem('projects', JSON.stringify(savedProjects))
+  // notify user of successful action
+  alert(`Successfully deleted project ${targetID}!`)
+  location.reload()
+ }
 }
-
 
 /**
  * Funtion to delete all projects
@@ -300,10 +303,42 @@ const deleteProject = (projectRowIndex) => {
  * Returns nothing
  */
 const deleteAllProjects = () => {
- // clear the database
- localStorage.clear()
- alert("All projects have been deleted!")
- location.reload()
+
+ // check if there are projects
+ let savedProjects = getAllProjects()
+
+ // if there are projects confirm with the user
+ if (savedProjects.length) {
+  response = confirmAction("delete all projects")
+  // if the response was confirmed, then delete all records
+  if (response === 'confirmed') {
+   // clear the database
+   localStorage.clear()
+   alert("All projects have been deleted!")
+   location.reload()
+  }
+ } else {
+  alert("There are no projects to delete!")
+ }
+}
+
+/**
+ * Function to confirm user response
+ * @param {String} msg message to display user
+ * @return {String} user response
+ */
+const confirmAction = (msg) => {
+ // variable to hold the reponse
+ let response = ''
+ let prompt = `Are you sure you want to ${msg}?\nPress OK to confirm, or cancel to void.`
+
+ // get the user response and return it
+ if (confirm(`${prompt}`)) {
+  response = 'confirmed'
+ } else {
+  response = "cancelled"
+ }
+ return response
 }
 
 /*
