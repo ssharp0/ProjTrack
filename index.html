@@ -14,9 +14,8 @@
 
   <!-- basic UI for creating a specific project -->
   <legend>Create Form</legend>
+  <br>
   <form id="createForm">
-    <label for="createProjectID"></label>
-    <input type="text" name="createProjectID" id="createProjectID" disabled>
     <label for="createProjectName">Project Name</label>
     <input type="text" id="createProjectName" name="createProjectName" required>
     <label for="createProjectStartDate">Start Date</label>
@@ -51,6 +50,7 @@
 
   <!-- basic UI for editing a specific project -->
   <legend>Edit Form</legend>
+  <br>
   <form id="editForm">
     <label for="editProjectID"></label>
     <input type="text" name="editProjectID" id="editProjectID" disabled>
@@ -88,6 +88,9 @@
   <!-- basic button to generate seed data in local storage -->
   <button id="genSeedDataBtn">Generate Seed Data</button>
 
+  <!-- basic button to delete all projects -->
+  <button id="deleteAllProjBtn">Delete All Projects</button>
+
   <!-- basic UI for Reading project data -->
   <table id="projectsTable">
    <tr>
@@ -101,6 +104,8 @@
     <th>Owner</th>
     <th>Notes</th>
     <!-- edit button for particular record -->
+    <th></th>
+    <!-- delete button for particular record -->
     <th></th>
    </tr>
   </table>

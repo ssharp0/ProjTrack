@@ -66,6 +66,7 @@ const insertProjectRecord = (project, rowIndex) => {
  let projectOwner = row.insertCell(7)
  let projectNotes = row.insertCell(8)
  let editButton = row.insertCell(9)
+ let deleteButton = row.insertCell(10)
 
  // display the associated db value from the project object
  projectID.innerText = project.projectID
@@ -82,6 +83,10 @@ const insertProjectRecord = (project, rowIndex) => {
  let editBtn = `<button onclick="editProject(${rowIndex})">Edit</button>`
  editButton.innerHTML = editBtn
 
+ // insert an edit button for the row
+ let deleteBtn = `<button onclick="deleteProject(${rowIndex})">Delete</button>`
+ deleteButton.innerHTML = deleteBtn
+
 }
 
 /*
@@ -90,7 +95,7 @@ UPDATE (crUd) operation and helper functions
 
 /**
  * Function to UPDATE (edit) the target project
- * @param {projectRowIndex} projectRowIndex Number that represents the row index of record to edit
+ * @param {Number} projectRowIndex Number that represents the row index of record to edit
  * Returns nothing
  */
 const editProject = (projectRowIndex) => {
@@ -300,6 +305,42 @@ const assignID = () => {
 // Event handler for the create project button
 let createProjectBtn = document.getElementById("createProjectBtn")
 createProjectBtn.addEventListener("click", createProject)
+
+/**
+ * Funtion to delete a selected project
+ * @param {Number} projectRowIndex Number that represents the row index of record to edit
+ * Returns nothing
+ */
+const deleteProject = (projectRowIndex) => {
+
+ // find the specific project to delete, filter for all where it's not provided
+ let savedProjects = getAllProjects()
+ savedProjects = savedProjects.filter((project, index) => index.toString() !== projectRowIndex.toString())
+
+ // update the local storage db
+ localStorage.setItem('projects', JSON.stringify(savedProjects))
+
+ // notify user of successful action
+ alert("Successfully deleted the project!")
+ location.reload()
+}
+
+
+/**
+ * Funtion to delete all projects
+ * Takes no pramters
+ * Returns nothing
+ */
+const deleteAllProjects = () => {
+ // clear the database
+ localStorage.clear()
+ alert("All projects have been deleted!")
+ location.reload()
+}
+
+// Event Handler to delete all projects
+let deleteAllProjBtn = document.getElementById("deleteAllProjBtn")
+deleteAllProjBtn.addEventListener("click", deleteAllProjects)
 
 // READ and display all project on the HTML
 document.addEventListener("DOMContentLoaded", displayAllProjects())
