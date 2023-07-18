@@ -215,12 +215,24 @@ const createProject = () => {
   "projectNotes": projectNotes
  }
 
- // push the project to the saved projects and set in the database
- savedProjects.push(project)
- localStorage.setItem('projects', JSON.stringify(savedProjects))
-
- // alert to notify success
- alert("success!")
+ // notify the user of missing required fields, if any
+ if (!projectName || !projectStartDate || !projectEndDate || !projectOwner) {
+  const errorMsgSpan = document.getElementById("createFormErrorMsg")
+  errorMsgSpan.style.color = 'red'
+  errorMsgSpan.innerText = 'Error. Please make sure you have provided a project name, dates, and owner.'
+  event.preventDefault()
+ } else {
+  // check for valid dates and names
+  validDate = validateStartEndDates(projectStartDate, projectEndDate, "createFormErrorMsg")
+  validName = validateName(projectName, "createFormErrorMsg")
+  // if the name and dates are valid, add project to database
+  if (validDate && validName) {
+   savedProjects.push(project)
+   localStorage.setItem('projects', JSON.stringify(savedProjects))
+   // alert to notify success
+   alert("success! The new project has been saved.")
+  }
+ }
 }
 
 /**
@@ -258,16 +270,63 @@ const assignID = () => {
 const formatID = (id) => {
  // hold an empty string
  let formattedID = id.toString()
- 
+
  // add prefix 0's to the format
  if (id < 10) {
   formattedID = '00' + formattedID
  } else if (id >= 10 || id < 100) {
   formattedID = '0' + formattedID
- } 
+ }
 
  // return teh formatted string
  return formattedID
+}
+
+/**
+ * Function to validate dates
+ * @param {String} start project start date
+ * @param {String} end project end date
+ * @param {String} elementID id of error msg element
+ * @return {Boolean} true or false representing if valid or not
+ */
+const validateStartEndDates = (start, end, elementID) => {
+ if (end < start) {
+  const errorMsgSpan = document.getElementById(elementID)
+  errorMsgSpan.style.color = 'red'
+  errorMsgSpan.innerText = 'Error. The end date cannot be before the start date.'
+  event.preventDefault()
+  return false
+ }
+ return true
+}
+
+/**
+ * Function to validate name (no duplicates)
+ * @param {String} name project name
+ * @param {String} elementID id of error msg element
+ * @return {Boolean} true or false representing if valid or not
+ */
+const validateName = (name, elementID) => {
+
+ // get all projects to check for any dupliate
+ let projects = getAllProjects()
+
+ // if there are projects, see if there is project with provided name
+ if (projects.length !== 0) {
+  for (const key in projects) {
+   if (Object.hasOwnProperty.call(projects, key)) {
+    let projName = projects[key].projectName
+    if (name.toLowerCase() === projName.toLowerCase()) {
+     const errorMsgSpan = document.getElementById(elementID)
+     errorMsgSpan.style.color = 'red'
+     errorMsgSpan.innerText = 'Error. A project already exists with this name.'
+     event.preventDefault()
+     return false
+    }
+   }
+  }
+ }
+ return true
 }
 
 /*
