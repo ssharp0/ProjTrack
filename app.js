@@ -45,7 +45,6 @@ const displayAllProjects = () => {
  * @param {Number} rowIndex Number that represents the row index to insert data
  * Returns nothing
  */
-// function to insert a row into the projects table with the provided project details
 const insertProjectRecord = (project, rowIndex) => {
 
  // get the project table element and insert a row at the end
@@ -67,6 +66,7 @@ const insertProjectRecord = (project, rowIndex) => {
  let projectNotes = row.insertCell(8)
  let editButton = row.insertCell(9)
  let deleteButton = row.insertCell(10)
+ let viewButton = row.insertCell(11)
 
  // display the associated db value from the project object
  projectID.innerText = project.projectID
@@ -87,7 +87,91 @@ const insertProjectRecord = (project, rowIndex) => {
  let deleteBtn = `<button onclick="deleteProject(${rowIndex})">Delete</button>`
  deleteButton.innerHTML = deleteBtn
 
+ // insert a view button for the row
+ let viewBtn = `<button onclick="viewProject(${rowIndex})">View</button>`
+ viewButton.innerHTML = viewBtn
+
 }
+
+/**
+ * Function to view a particular project
+ * @param {Number} projectRowIndex Number that represents the row index to find project
+ * Returns nothing
+ */
+const viewProject = (projectRowIndex) => {
+
+ // display the area
+ const viewForm = document.getElementById("viewForm")
+ const viewFormLegend = document.getElementById("viewFormLegend")
+ viewForm.style.display = 'block'
+ viewFormLegend.style.display = 'block'
+
+ // get the target project to display
+ const savedProjects = getAllProjects()
+ const target = savedProjects.filter((project, index) => index.toString() === projectRowIndex.toString())
+
+ // get the elements
+ let projectID = document.getElementById("viewProjectID")
+ let projectName = document.getElementById("viewProjectName")
+ let projectStartDate = document.getElementById("viewProjectStartDate")
+ let projectEndDate = document.getElementById("viewProjectEndDate")
+ let projectPriority = document.getElementById("viewProjectPriority")
+ let projectStatus = document.getElementById("viewProjectStatus")
+ let projectAtRisk = document.getElementById("viewProjectAtRisk")
+ let projectOwner = document.getElementById("viewProjectOwner")
+ let projectNotes = document.getElementById("viewProjectNotes")
+
+ // populate the project details
+ projectID.value = target[0].projectID
+ projectName.value = target[0].projectName
+ projectStartDate.value = target[0].projectStartDate
+ projectEndDate.value = target[0].projectEndDate
+ projectPriority.value = target[0].projectPriority
+ projectStatus.value = target[0].projectStatus
+ projectAtRisk.value = target[0].projectAtRisk
+ projectOwner.value = target[0].projectOwner
+ projectNotes.value = target[0].projectNotes
+
+ // add a button to cancel the view
+ let button = `<button onclick="cancelView()">Cancel View</button>`
+ cancelButtonEl = document.createElement("span")
+ cancelButtonEl.innerHTML = button
+ viewForm.append(cancelButtonEl)
+
+}
+
+/**
+ * Function to cancel particular view
+ * Takes no parameters
+ * Returns nothing
+ */
+const cancelView = () => {
+ location.reload()
+}
+
+/**
+ * Function to search for a project by name
+ * Takes no parameters
+ * Returns nothing
+ */
+const searchProject = () => {
+
+ // get the search value and find the index if there is matching name
+ let searchVal = document.getElementById("searchProjectVal").value
+ const savedProjects = getAllProjects()
+ const tgtIndex = savedProjects.findIndex(project => project.projectName.toLowerCase() === searchVal.toLowerCase())
+
+ if (tgtIndex !== -1 && searchVal) {
+  viewProject(tgtIndex)
+ } else {
+  alert("The project cannot be found!")
+ }
+
+}
+
+// add event listener for the button to search for project
+let searchProjectBtn = document.getElementById("searchProjectBtn")
+searchProjectBtn.addEventListener("click", searchProject)
 
 /*
 UPDATE (crUd) operation and helper functions
