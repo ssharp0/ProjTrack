@@ -281,25 +281,43 @@ const createProject = () => {
 const assignID = () => {
  // get all the projects and initialize the first id
  let projects = getAllProjects()
- let id = '001'
+ let id = 1
  // if there are saved projects, find the last ID available
  if (projects.length !== 0) {
   for (const key in projects) {
    if (Object.hasOwnProperty.call(projects, key)) {
-    let element = projects[key];
-    let elementID = element.projectID
-    if (id <= elementID) {
-     id = elementID
+    let projID = parseInt(projects[key].projectID)
+    if (id <= projID) {
+     id = projID
     }
    }
   }
   // incrememnt by 1 and return the string
-  id = parseInt(id)
   id = id += 1
-  return id.toString()
+  return formatID(id)
  }
  // otherwise there are no saved projects so assign first id
- return id
+ return formatID(id)
+}
+
+/**
+ * Funtion to format projectID to proper string format
+ * Takes no prameters
+ * @return {String} string representing the format of project number
+ */
+const formatID = (id) => {
+ // hold an empty string
+ let formattedID = id.toString()
+ 
+ // add prefix 0's to the format
+ if (id < 10) {
+  formattedID = '00' + formattedID
+ } else if (id >= 10 || id < 100) {
+  formattedID = '0' + formattedID
+ } 
+
+ // return teh formatted string
+ return formattedID
 }
 
 // Event handler for the create project button
