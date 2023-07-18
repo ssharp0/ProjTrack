@@ -178,58 +178,8 @@ const submitEdit = (projectIndex) => {
 }
 
 /*
-Seed Hard Coded Data for Testing
+CREATE (Crud) operation and helper functions
 */
-
-/**
- * Function to generate seed data from hardcoded information
- * Takes no paramters
- * Returns nothing
- */
-const generateSeedData = () => {
-
- // arrays to store project details
- let projectIDs = ["001","002","003"]
- let projectNames = ["Create Repo", "Setup Server","Setup DB"]
- let projectStartDates = ["2023-06-08", "2023-06-23", "2023-06-29"]
- let projectEndDates = ["2023-06-21", "2023-06-28", "2023-07-08"]
- let projectPriorities = ["Low", "High", "Medium"]
- let projectStatuses = ["Completed", "In Progress", "In Progress"]
- let projectAtRisk = ["No", "Yes", "No"]
- let projectOwner = ["Myself", "Joe", "Myself"]
- let projectNotes = ["Initialize Setup", "Test Config", "Create Fields"]
- let numberOfProjects = projectIDs.length
-
- // for each project, create object and set it to local storage database
- for (let i = 0; i < numberOfProjects; i++) {
-  // get all current projects to add current project
-  let savedProjects = getAllProjects()
-  // create the object
-  const project = {
-   "projectID": projectIDs[i],
-   "projectName": projectNames[i],
-   "projectStartDate": projectStartDates[i],
-   "projectEndDate": projectEndDates[i],
-   "projectPriority": projectPriorities[i],
-   "projectStatus": projectStatuses[i],
-   "projectAtRisk": projectAtRisk[i],
-   "projectOwner": projectOwner[i],
-   "projectNotes": projectNotes[i]
-  }
-  // push the project to the saved projects and set in the database
-  savedProjects.push(project)
-  localStorage.setItem('projects', JSON.stringify(savedProjects))
-  location.reload()
- }
-}
-
-/*
-Event Listeners
-*/
-
-// add event listener for the button to genereate seed data
-let genSeedDataBtn = document.getElementById("genSeedDataBtn")
-genSeedDataBtn.addEventListener("click", generateSeedData)
 
 /**
  * Function to create a new project record
@@ -320,9 +270,9 @@ const formatID = (id) => {
  return formattedID
 }
 
-// Event handler for the create project button
-let createProjectBtn = document.getElementById("createProjectBtn")
-createProjectBtn.addEventListener("click", createProject)
+/*
+DELETE (cruD) operation and helper functions
+*/
 
 /**
  * Funtion to delete a selected project
@@ -355,6 +305,64 @@ const deleteAllProjects = () => {
  alert("All projects have been deleted!")
  location.reload()
 }
+
+/*
+Seed Hard Coded Data for Testing
+*/
+
+/**
+ * Function to generate seed data from hardcoded information
+ * Takes no paramters
+ * Returns nothing
+ */
+const generateSeedData = () => {
+
+ // arrays to store project details
+ let projectIDs = ["001", "002", "003"]
+ let projectNames = ["Create Repo", "Setup Server", "Setup DB"]
+ let projectStartDates = ["2023-06-08", "2023-06-23", "2023-06-29"]
+ let projectEndDates = ["2023-06-21", "2023-06-28", "2023-07-08"]
+ let projectPriorities = ["Low", "High", "Medium"]
+ let projectStatuses = ["Completed", "In Progress", "In Progress"]
+ let projectAtRisk = ["No", "Yes", "No"]
+ let projectOwner = ["Myself", "Joe", "Myself"]
+ let projectNotes = ["Initialize Setup", "Test Config", "Create Fields"]
+ let numberOfProjects = projectIDs.length
+
+ // for each project, create object and set it to local storage database
+ for (let i = 0; i < numberOfProjects; i++) {
+  // get all current projects to add current project
+  let savedProjects = getAllProjects()
+  // create the object
+  const project = {
+   "projectID": projectIDs[i],
+   "projectName": projectNames[i],
+   "projectStartDate": projectStartDates[i],
+   "projectEndDate": projectEndDates[i],
+   "projectPriority": projectPriorities[i],
+   "projectStatus": projectStatuses[i],
+   "projectAtRisk": projectAtRisk[i],
+   "projectOwner": projectOwner[i],
+   "projectNotes": projectNotes[i]
+  }
+  // push the project to the saved projects and set in the database
+  savedProjects.push(project)
+  localStorage.setItem('projects', JSON.stringify(savedProjects))
+  location.reload()
+ }
+}
+
+/*
+Event Listeners
+*/
+
+// add event listener for the button to genereate seed data
+let genSeedDataBtn = document.getElementById("genSeedDataBtn")
+genSeedDataBtn.addEventListener("click", generateSeedData)
+
+// Event handler for the create project button
+let createProjectBtn = document.getElementById("createProjectBtn")
+createProjectBtn.addEventListener("click", createProject)
 
 // Event Handler to delete all projects
 let deleteAllProjBtn = document.getElementById("deleteAllProjBtn")
