@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="./style.css">
+ <title>ProjTrack</title>
+</head>
+
+<body>
+
+ <h1>ProjTrack</h1>
+
+ <nav>
+  <a href="./newProj.html">New Project</a>
+  <a href="./index.html">Home</a>
+ </nav>
+
+ <!-- basic UI for creating a specific project -->
+ <legend>Create Form</legend>
+  <br>
+  <form id="createForm">
+    <label for="createProjectName">Project Name</label>
+    <input type="text" id="createProjectName" name="createProjectName" required>
+    <label for="createProjectStartDate">Start Date</label>
+    <input type="date" id="createProjectStartDate" name="createProjectStartDate" required>
+    <label for="createProjectEndDate">End Date</label>
+    <input type="date" id="createProjectEndDate" name="createProjectEndDate" required>
+    <label for="createProjectPriority">Project Priority</label>
+    <select name="createProjectPriority" id="createProjectPriority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+    <label for="createProjectStatus">Project Status</label>
+    <select name="createProjectStatus" id="createProjectStatus">
+      <option value="Not Started">Not Started</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+    <label for="createProjectAtRisk">At Risk</label>
+    <select name="createProjectAtRisk" id="createProjectAtRisk">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <label for="createProjectOwner">Project Owner</label>
+    <input type="text" id="createProjectOwner" required>
+    <label for="createProjectNotes">Project Notes</label>
+    <input type="text" id="createProjectNotes">
+    <button id="createProjectBtn">Save</button>
+  </form>
+  <span id="createFormErrorMsg"></span>
+  
+  <hr>
+  <br>
+
+ <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
