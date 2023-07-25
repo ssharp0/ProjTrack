@@ -196,9 +196,10 @@ Handle Notification Pop Ups
  * Returns nothing
  */
 const toggleFade = () => {
- let notificationDiv = document.getElementById("notificationDiv");
+ const notificationDiv = document.getElementById("notificationDiv");
+ const createNewProjectDiv = document.getElementById("createNewProjectDiv")
  notificationDiv.classList.toggle('fade')
- createForm.style.display = 'block'
+ createNewProjectDiv.style.display = 'block'
 }
 
 /**
@@ -231,8 +232,8 @@ const showNotification = (status, textString, projID, projName) => {
  const notificationViewAlltn = document.getElementById("notificationViewAlltn")
  const notificationResetBtn = document.getElementById("notificationResetBtn")
 
- const createForm = document.getElementById("createForm")
- createForm.style.display = 'none'
+ const createNewProjectDiv = document.getElementById("createNewProjectDiv")
+ createNewProjectDiv.style.display = 'none'
 
  // display successful notification
  notificationDiv.style.display = "block"
@@ -262,9 +263,10 @@ const showNotification = (status, textString, projID, projName) => {
  */
 const resetForm = () => {
  const createForm = document.getElementById("createForm")
+ const createNewProjectDiv = document.getElementById("createNewProjectDiv")
+ createNewProjectDiv.style.display = 'block'
  createForm.reset()
  toggleFade()
- createForm.style.display = 'block'
 }
 
 /**
