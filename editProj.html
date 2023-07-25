@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="./style.css">
+ <title>ProjTrack - Edit Project</title>
+</head>
+
+<body>
+
+ <!-- Header Bar -->
+ <div class="headerBar">
+  <h1 class="heading1">ProjTrack</h1>
+  <h3 id="editProjIDHeading" class="heading2"></h3>
+  <nav class="navBar"">
+   <a href=" ./newProj.html"><button>Create New Project</button></a>
+   <a href=" ./index.html"><button>Dashboard</button></a>
+  </nav>
+ </div>
+
+<!-- Notifications for user -->
+<div id="notificationDiv">
+    <div class="notificationMsgDiv">
+        <span id="notification" class="alert"></span>
+    </div>
+    <br>
+    <div class="notificationInputDiv">
+        <input type="text" id="notificationProjID" disabled>
+        <input type="text" id="notificationProjName" disabled>
+    </div>
+    <div class="notificationBtnsDiv">
+        <button class="notificationBtn" id="notificationAddNewBtn" style="display: none;">Add Another Project</button>
+        <br>
+        <button class="notificationBtn" id="notificationViewAlltn" style="display: none;">View All Projects</button>
+        <br>
+        <button class="notificationBtn" id="notificationContinueBtn" style="display: none;">Continue</button>
+        <br>
+        <button class="notificationBtn" id="notificationResetBtn" style="display: none;">Reset</button>
+    </div>
+</div>
+
+<!-- Div for Edit Project Form -->
+<div id="editProjectDiv">
+    <input id="editProjectID" style="display: none;" disabled></input>
+    <form id="editForm" class="projectForm">
+        <label for="editProjectName">Project Name</label>
+        <input type="text" id="editProjectName" name="editProjectName" required>
+        <div class="splitDiv">
+            <label for="editProjectStartDate">Start Date</label>
+            <input type="date" id="editProjectStartDate" name="editProjectStartDate" required>
+        </div>
+        <div class="splitDiv">
+            <label for="editProjectEndDate">End Date</label>
+            <input type="date" id="editProjectEndDate" name="editProjectEndDate" required>
+        </div>
+        <div class="splitDiv">
+            <label for="editProjectPriority">Priority</label>
+            <select name="editProjectPriority" id="editProjectPriority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="splitDiv">
+            <label for="editProjectStatus">Status</label>
+            <select name="editProjectStatus" id="editProjectStatus">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+        <div class="splitDiv">
+            <label for="editProjectAtRisk">At Risk</label>
+            <select name="editProjectAtRisk" id="editProjectAtRisk">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <label for="editProjectOwner">Owner</label>
+        <input type="text" id="editProjectOwner" required>
+        <label for="editProjectNotes">Notes</label>
+        <textarea name="" id="editProjectNotes" cols="30" rows="10" placeholder="Type here..."></textarea>
+        <button id="editProjectBtn">Save</button>
+        <button type="reset">Reset</button>
+    </form>
+    <br>
+    <span id="editFormErrorMsg"></span>
+</div>
+
+ <script src="./assets/js/editProj.js"></script>
+</body>
+
+</html>
