@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="./style.css">
+ <title>ProjTrack</title>
+</head>
+<body>
+  
+  <!-- Header Bar -->
+  <div class="headerBar">
+    <h1 class="heading1">ProjTrack</h1>
+    <h3 class="heading2">Project Dashboard</h3>
+    <nav class="navBar"">
+      <a href="./newProj.html"><button>Create New Project</button></a>
+      <a href=" ./dashboard.html"><button>Dashboard</button></a>
+      <a href=" ./index.html"><button>Home</button></a>
+    </nav>
+  </div>
+  
+  <!-- Charts Div -->
+  <div class="chartsContainerDiv">
+    <div class="chartsContainerHeaderDiv">Project Insights</div>
+    <div class="chartsTotalProjDiv">Total Projects Chart</div>
+    <div class="chartsPriorityDiv">Projects by Priority Chart</div>
+    <div class="chartsStatusDiv">Projects by Status Chart</div>
+    <div class="chartsAtRiskDiv">Projects at Risk Chart</div>
+    <div class="chartsCalendarDiv">Project Calendar</div>
+  </div>
+  
+  <!-- Search for a Project -->
+  <div class="dashboardButtonsDiv">
+    <input type="text" id="searchProjectVal" placeholder="Project Name...">
+    <button id="searchProjectBtn">Search Project</button>
+    <!-- button to generate seed data in local storage -->
+    <button id="genSeedDataBtn">Generate Seed Data</button>
+    <!-- button to delete all projects -->
+    <button id="deleteAllProjBtn">Delete All Projects</button>
+  </div>
+
+  <!-- basic UI for Reading project data -->
+  <div class="projectsTableDiv">
+    <table id="projectsTable">
+     <tr>
+      <th>ID</th>
+      <th>Project Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th>At Risk</th>
+      <th>Owner</th>
+      <th>Notes</th>
+      <!-- edit button for particular record -->
+      <th></th>
+      <!-- delete button for particular record -->
+      <th></th>
+      <!-- view button for particular record -->
+      <th></th>
+     </tr>
+    </table>
+  </div>
+
+  <!-- footer -->
+  <footer class="footer">
+    <p class="copyright"> ProjTrack 2023 </p>
+  </footer>
+
+ <script src="./assets/js/app.js"></script>
+</body>
+</html>
