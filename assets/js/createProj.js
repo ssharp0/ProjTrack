@@ -8,7 +8,7 @@ console.log('connected')
 const localStorage = window.localStorage
 
 /*
-READ (cRud) operation and helper functions
+READ (cRud) operation
 */
 
 /**
@@ -32,6 +32,9 @@ CREATE (Crud) operation and helper functions
  * Returns nothing
  */
 const createProject = () => {
+
+ const notificationDiv = document.getElementById("notificationDiv");
+ notificationDiv.setAttribute("class", "")
 
  // grab the form information information
  let projectID = assignID()
@@ -61,6 +64,8 @@ const createProject = () => {
 
  // notify the user of missing required fields, if any
  if (!projectName || !projectStartDate || !projectEndDate || !projectOwner) {
+  let msg = 'Error. Please make sure you have provided a project name, dates, and owner.'
+  showNotification("error", msg, "N/A", "N/A")
   const errorMsgSpan = document.getElementById("createFormErrorMsg")
   errorMsgSpan.style.color = 'red'
   errorMsgSpan.innerText = 'Error. Please make sure you have provided a project name, dates, and owner.'
@@ -71,10 +76,14 @@ const createProject = () => {
   validName = validateName(projectName, "createFormErrorMsg")
   // if the name and dates are valid, add project to database
   if (validDate && validName) {
+   const errorMsgSpan = document.getElementById("createFormErrorMsg")
+   errorMsgSpan.innerText = ""
    savedProjects.push(project)
    localStorage.setItem('projects', JSON.stringify(savedProjects))
    // alert to notify success
-   alert("success! The new project has been saved.")
+   msg = `Success! Your new project has been saved.`
+   showNotification("success", msg, projectID, projectName)
+   event.preventDefault()
   }
  }
 }
@@ -136,9 +145,11 @@ const formatID = (id) => {
 const validateStartEndDates = (start, end, elementID) => {
  if (end < start) {
   const errorMsgSpan = document.getElementById(elementID)
+  errorMsg = 'Error. The end date cannot be before the start date.'
   errorMsgSpan.style.color = 'red'
-  errorMsgSpan.innerText = 'Error. The end date cannot be before the start date.'
+  errorMsgSpan.innerText = errorMsg
   event.preventDefault()
+  showNotification("error", errorMsg, "N/A", "N/A")
   return false
  }
  return true
@@ -162,9 +173,11 @@ const validateName = (name, elementID) => {
     let projName = projects[key].projectName
     if (name.toLowerCase() === projName.toLowerCase()) {
      const errorMsgSpan = document.getElementById(elementID)
+     errorMsg = 'Error. A project already exists with this name.'
      errorMsgSpan.style.color = 'red'
-     errorMsgSpan.innerText = 'Error. A project already exists with this name.'
+     errorMsgSpan.innerText = errorMsg
      event.preventDefault()
+     showNotification("error", errorMsg, "N/A", "N/A")
      return false
     }
    }
@@ -172,6 +185,107 @@ const validateName = (name, elementID) => {
  }
  return true
 }
+
+/*
+Handle Notification Pop Ups
+*/
+
+/**
+ * Function to toggle the notification msg for display
+ * Takes no parameters
+ * Returns nothing
+ */
+const toggleFade = () => {
+ let notificationDiv = document.getElementById("notificationDiv");
+ notificationDiv.classList.toggle('fade')
+ createForm.style.display = 'block'
+}
+
+/**
+ * Function to remove the class attribute to remove the fade
+ * Takes no parameters
+ * Returns nothing
+ */
+const removeFade = () => {
+ let notificationDiv = document.getElementById("notificationDiv");
+ notificationDiv.setAttribute("class", "")
+}
+
+/**
+ * Function to display notification pop up
+ * @param {String} status 'success' if action succcessful
+ * @param {String} textString message to display
+ * @param {String} projID ID assigned to project to display
+ * @param {String} projName name assigned to project to display
+ * Returns nothing
+ */
+const showNotification = (status, textString, projID, projName) => {
+
+ // grab elements to display
+ const notificationDiv = document.getElementById("notificationDiv");
+ const notificationProjID = document.getElementById("notificationProjID");
+ const notificationProjName = document.getElementById("notificationProjName");
+ const notification = document.getElementById("notification");
+ const notificationAddNewBtn = document.getElementById("notificationAddNewBtn")
+ const notificationContinueBtn = document.getElementById("notificationContinueBtn")
+ const notificationViewAlltn = document.getElementById("notificationViewAlltn")
+ const notificationResetBtn = document.getElementById("notificationResetBtn")
+
+ const createForm = document.getElementById("createForm")
+ createForm.style.display = 'none'
+
+ // display successful notification
+ notificationDiv.style.display = "block"
+ notification.innerHTML = textString
+ notificationProjID.value = `Project ID: ${projID}`
+ notificationProjName.value = `Project Name: ${projName}`
+
+ if (status === 'success') {
+  notificationDiv.style.backgroundColor = 'green'
+  notificationContinueBtn.style.display = 'none'
+  notificationResetBtn.style.display = 'none'
+  notificationAddNewBtn.style.display = 'block'
+  notificationViewAlltn.style.display = 'block'
+ } else {
+  notificationDiv.style.backgroundColor = 'red'
+  notificationContinueBtn.style.display = 'block'
+  notificationResetBtn.style.display = 'block'
+  notificationAddNewBtn.style.display = 'none'
+  notificationViewAlltn.style.display = 'none'
+ }
+}
+
+/**
+ * Function reset all form inputs
+ * Takes no parameters
+ * Returns nothing
+ */
+const resetForm = () => {
+ const createForm = document.getElementById("createForm")
+ createForm.reset()
+ toggleFade()
+ createForm.style.display = 'block'
+}
+
+/**
+ * Function to reset form and display form to add new proj
+ * Takes no parameters
+ * Returns nothing
+ */
+const confirmAddNew = () => {
+ resetForm()
+ createForm.style.display = 'block'
+}
+
+/**
+ * Function to go to the navDashboard
+ * Takes no parameters
+ * Returns nothing
+ */
+const navDashboard = () => {
+ window.location.href = "./index.html"
+}
+
 /*
 Event Listeners
 */
@@ -179,3 +293,19 @@ Event Listeners
 // Event handler for the create project button
 let createProjectBtn = document.getElementById("createProjectBtn")
 createProjectBtn.addEventListener("click", createProject)
+
+// Event handler for adding a new project
+let notificationAddNewBtn = document.getElementById("notificationAddNewBtn")
+notificationAddNewBtn.addEventListener("click", confirmAddNew)
+
+// Event handler for viewing all projects
+let notificationViewAlltn = document.getElementById("notificationViewAlltn")
+notificationViewAlltn.addEventListener("click", navDashboard)
+
+// Event handler for continuing with entry
+let notificationContinueBtn = document.getElementById("notificationContinueBtn")
+notificationContinueBtn.addEventListener("click", toggleFade)
+
+// Event handler for reseting the input values
+let notificationResetBtn = document.getElementById("notificationResetBtn")
+notificationResetBtn.addEventListener("click", resetForm)
