@@ -1,0 +1,83 @@
+/* Formatting for Dashboard Chart Layouts */
+
+.chartsContainerHeaderDiv { 
+	grid-area: chartHeader;
+ font-size: 1.5em;
+	font-weight: bold;
+}
+
+.chartsTotalProjDiv { 
+	grid-area: chartTotal; 
+ background-color: white; 
+}
+
+.chartsPriorityDiv { 
+	grid-area: chartPriority;
+ background-color: white; 
+}
+
+.chartsStatusDiv { 
+	grid-area: chartStatus; 
+ background-color: white; 
+}
+
+.chartsAtRiskDiv { 
+	grid-area: chartAtRisk; 
+ background-color: white; 
+}
+
+.chartsCalendarDiv {
+	grid-area: chartCalendar;
+ background-color: white; 
+}
+
+.chartsContainerDiv {
+	display: grid;
+	grid-template-areas:
+		'chartHeader chartHeader chartHeader chartHeader chartHeader'
+		'chartTotal chartPriority chartStatus chartAtRisk chartCalendar';
+	padding: 5px;
+	gap: 5px;
+}
+
+.chartsContainerDiv > div {
+	text-align: center;
+	padding: 25px;
+}
+
+/* Formatting for dashboard search and buttons div */
+
+.dashboardButtonsDiv {
+	margin-top: 1%;
+	margin-bottom: 1%;
+	margin-right: 10%;
+	margin-left: 10%;
+}
+
+/* Formatting for Table Displaying Projects */
+
+.projectsTableDiv {
+	margin-right: 10%;
+	margin-left: 10%;
+}
+
+#projectsTable {
+	width: 100%;
+	border-collapse: collapse;
+ font-size: 0.85em;
+	text-align: left;
+	box-shadow: 0 5px 5px rgba(55, 71, 74, 0.35);
+}
+
+#projectsTable th {
+	background-color: lightgray;
+}
+
+#projectsTable th,
+#projectsTable td {
+	padding: 10px 15px;
+}
+
+#projectsTable tbody tr:nth-of-type(even) {
+	background-color: white;
+}
