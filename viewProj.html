@@ -4,7 +4,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="./style.css">
+ <link rel="stylesheet" href="./assets/css/style.css">
  <title>ProjTrack - View Project</title>
 </head>
 
@@ -24,8 +24,10 @@
  <div id="viewProjectDiv">
   <input id="viewProjectID" style="display: none;" disabled></input>
   <form id="viewForm" class="projectForm">
-   <label for="viewProjectName">Project Name</label>
-   <input type="text" id="viewProjectName" name="viewProjectName" required disabled>
+   <div class="splitDiv">
+    <label for="viewProjectName">Project Name</label>
+    <input type="text" id="viewProjectName" name="viewProjectName" required disabled>
+   </div>
    <div class="splitDiv">
     <label for="viewProjectStartDate">Start Date</label>
     <input type="date" id="viewProjectStartDate" name="viewProjectStartDate" required disabled>
@@ -57,8 +59,10 @@
      <option value="No">No</option>
     </select>
    </div>
-   <label for="viewProjectOwner">Owner</label>
-   <input type="text" id="viewProjectOwner" required disabled>
+   <div class="splitDiv">
+    <label for="viewProjectOwner">Owner</label>
+    <input type="text" id="viewProjectOwner" required disabled>
+   </div>
    <label for="viewProjectNotes">Notes</label>
    <textarea name="" id="viewProjectNotes" cols="30" rows="10" disabled></textarea>
    <button id="viewProjectBtn">Exit</button>

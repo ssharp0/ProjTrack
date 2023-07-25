@@ -4,7 +4,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="./style.css">
+ <link rel="stylesheet" href="./assets/css/style.css">
  <title>ProjTrack - Edit Project</title>
 </head>
 
@@ -45,8 +45,10 @@
 <div id="editProjectDiv">
     <input id="editProjectID" style="display: none;" disabled></input>
     <form id="editForm" class="projectForm">
-        <label for="editProjectName">Project Name</label>
-        <input type="text" id="editProjectName" name="editProjectName" required>
+        <div class="splitDiv">
+            <label for="editProjectName">Project Name</label>
+            <input type="text" id="editProjectName" name="editProjectName" required>
+        </div>
         <div class="splitDiv">
             <label for="editProjectStartDate">Start Date</label>
             <input type="date" id="editProjectStartDate" name="editProjectStartDate" required>
@@ -78,8 +80,10 @@
                 <option value="No">No</option>
             </select>
         </div>
-        <label for="editProjectOwner">Owner</label>
-        <input type="text" id="editProjectOwner" required>
+        <div class="splitDiv">
+            <label for="editProjectOwner">Owner</label>
+            <input type="text" id="editProjectOwner" required>
+        </div>
         <label for="editProjectNotes">Notes</label>
         <textarea name="" id="editProjectNotes" cols="30" rows="10" placeholder="Type here..."></textarea>
         <button id="editProjectBtn">Save</button>

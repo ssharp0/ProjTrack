@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
   <title>ProjTrack - Add New Project</title>
 </head>
 
@@ -44,8 +44,10 @@
   <!-- Div for New Project Form -->
   <div id="createNewProjectDiv">
     <form id="createForm" class="projectForm">
-      <label for="createProjectName">Project Name</label>
-      <input type="text" id="createProjectName" name="createProjectName" required>
+      <div class="splitDiv">
+        <label for="createProjectName">Project Name</label>
+        <input type="text" id="createProjectName" name="createProjectName" required>
+      </div>
       <div class="splitDiv">
         <label for="createProjectStartDate">Start Date</label>
         <input type="date" id="createProjectStartDate" name="createProjectStartDate" required>
@@ -77,8 +79,11 @@
           <option value="No">No</option>
         </select>
       </div>
-      <label for="createProjectOwner">Owner</label>
-      <input type="text" id="createProjectOwner" required>
+      <div class="splitDiv">
+        <label for="createProjectOwner">Owner</label>
+        <input type="text" id="createProjectOwner" required>
+      </div>
+      <br>
       <label for="createProjectNotes">Notes</label>
       <textarea name="" id="createProjectNotes" cols="30" rows="10" placeholder="Type here..."></textarea>
       <button id="createProjectBtn">Save</button>
