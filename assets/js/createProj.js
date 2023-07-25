@@ -285,7 +285,7 @@ const confirmAddNew = () => {
  * Returns nothing
  */
 const navDashboard = () => {
- window.location.href = "./index.html"
+ window.location.href = "./dashboard.html"
 }
 
 /*

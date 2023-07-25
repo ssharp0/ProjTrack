@@ -133,7 +133,7 @@ const submitEdit = () => {
 
  // prevent the default and navigate back
  event.preventDefault()
- window.location.href = "./index.html"
+ window.location.href = "./dashboard.html"
 
 }
 

@@ -48,7 +48,7 @@ const populateViewForm = () => {
  */
 const navDashboard = () => {
  event.preventDefault()
- window.location.href = "./index.html"
+ window.location.href = "./dashboard.html"
 }
 
 /**
