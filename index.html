@@ -1,167 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="./style.css">
  <title>ProjTrack</title>
 </head>
+
 <body>
 
-  <h1>ProjTrack</h1>
+ <div class="projectHeader">
+  <h1>Welcome to ProjTrack</h1>
+  <h2>Easily Manage All of Your Projects and Get Key Insights</h2>
+  <h4>What would you like to do?</h4>
+  <a href=" ./newProj.html"><button>Create New Project</button></a>
+  <a href=" ./dashboard.html"><button>Go to Dashboard</button></a>
+ </div>
 
-  <hr>
-  <br>
-    
-  <legend>Search for a project</legend>
-  <input type="text" id="searchProjectVal">
-  <button id="searchProjectBtn">Search Project</button>
-  
-  <br>
-  
-  <legend id="viewFormLegend" style="display: none;">view details</legend>
-  <form id="viewForm" style="display: none;">
-    <label for="viewProjectID">ID</label>
-    <input type="text" name="viewProjectID" id="viewProjectID" disabled>
-    <label for="viewProjectName">Project Name</label>
-    <input type="text" id="viewProjectName" name="viewProjectName" disabled>
-    <label for="viewProjectStartDate">Start Date</label>
-    <input type="date" id="viewProjectStartDate" name="viewProjectStartDate" disabled>
-    <label for="viewProjectEndDate">End Date</label>
-    <input type="date" id="viewProjectEndDate" name="viewProjectEndDate" disabled>
-    <label for="viewProjectPriority">Project Priority</label>
-    <select name="viewProjectPriority" id="viewProjectPriority" disabled>
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
-    </select>
-    <label for="viewProjectStatus">Project Status</label>
-    <select name="viewProjectStatus" id="viewProjectStatus" disabled>
-      <option value="Not Started">Not Started</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
-    </select>
-    <label for="viewProjectAtRisk">At Risk</label>
-    <select name="viewProjectAtRisk" id="viewProjectAtRisk" disabled>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-    <label for="viewProjectOwner">Project Owner</label>
-    <input type="text" id="viewProjectOwner" disabled>
-    <label for="viewProjectNotes">Project Notes</label>
-    <input type="text" id="viewProjectNotes" disabled>
-  </form>
-
-  <hr>
-  <br>
-
-  <!-- basic UI for creating a specific project -->
-  <legend>Create Form</legend>
-  <br>
-  <form id="createForm">
-    <label for="createProjectName">Project Name</label>
-    <input type="text" id="createProjectName" name="createProjectName" required>
-    <label for="createProjectStartDate">Start Date</label>
-    <input type="date" id="createProjectStartDate" name="createProjectStartDate" required>
-    <label for="createProjectEndDate">End Date</label>
-    <input type="date" id="createProjectEndDate" name="createProjectEndDate" required>
-    <label for="createProjectPriority">Project Priority</label>
-    <select name="createProjectPriority" id="createProjectPriority">
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
-    </select>
-    <label for="createProjectStatus">Project Status</label>
-    <select name="createProjectStatus" id="createProjectStatus">
-      <option value="Not Started">Not Started</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
-    </select>
-    <label for="createProjectAtRisk">At Risk</label>
-    <select name="createProjectAtRisk" id="createProjectAtRisk">
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-    <label for="createProjectOwner">Project Owner</label>
-    <input type="text" id="createProjectOwner" required>
-    <label for="createProjectNotes">Project Notes</label>
-    <input type="text" id="createProjectNotes">
-    <button id="createProjectBtn">Save</button>
-  </form>
-  <span id="createFormErrorMsg"></span>
-  
-  <hr>
-  <br>
-
-  <!-- basic UI for editing a specific project -->
-  <legend>Edit Form</legend>
-  <br>
-  <form id="editForm">
-    <label for="editProjectID">ID</label>
-    <input type="text" name="editProjectID" id="editProjectID" disabled>
-    <label for="editProjectName">Project Name</label>
-    <input type="text" id="editProjectName" name="editProjectName" required>
-    <label for="editProjectStartDate">Start Date</label>
-    <input type="date" id="editProjectStartDate" name="editProjectStartDate" required>
-    <label for="editProjectEndDate">End Date</label>
-    <input type="date" id="editProjectEndDate" name="editProjectEndDate" required>
-    <label for="editProjectPriority">Project Priority</label>
-    <select name="editProjectPriority" id="editProjectPriority">
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
-    </select>
-    <label for="editProjectStatus">Project Status</label>
-    <select name="editProjectStatus" id="editProjectStatus">
-      <option value="Not Started">Not Started</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
-    </select>
-    <label for="editProjectAtRisk">At Risk</label>
-    <select name="editProjectAtRisk" id="editProjectAtRisk">
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-    <label for="editProjectOwner">Project Owner</label>
-    <input type="text" id="editProjectOwner" required>
-    <label for="editProjectNotes">Project Notes</label>
-    <input type="text" id="editProjectNotes">
-  </form>
-
-  <hr>
-
-  <!-- basic button to generate seed data in local storage -->
-  <button id="genSeedDataBtn">Generate Seed Data</button>
-
-  <!-- basic button to delete all projects -->
-  <button id="deleteAllProjBtn">Delete All Projects</button>
-
-  <hr>
-  <br>
-
-  <!-- basic UI for Reading project data -->
-  <legend>All Projects</legend>
-  <br>
-  <table id="projectsTable">
-   <tr>
-    <th>ID</th>
-    <th>Project Name</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Priority</th>
-    <th>Status</th>
-    <th>At Risk</th>
-    <th>Owner</th>
-    <th>Notes</th>
-    <!-- edit button for particular record -->
-    <th></th>
-    <!-- delete button for particular record -->
-    <th></th>
-    <!-- view button for particular record -->
-    <th></th>
-   </tr>
-  </table>
-
- <script src="./app.js"></script>
 </body>
+
 </html>
