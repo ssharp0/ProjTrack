@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="./style.css">
+ <title>ProjTrack - View Project</title>
+</head>
+
+<body>
+
+ <!-- Header Bar -->
+ <div class="headerBar">
+  <h1 class="heading1">ProjTrack</h1>
+  <h3 id="viewProjIDHeading" class="heading2"></h3>
+  <nav class="navBar"">
+   <a href=" ./newProj.html"><button>Create New Project</button></a>
+   <a href=" ./index.html"><button>Dashboard</button></a>
+  </nav>
+ </div>
+
+ <!-- Div for view Project Form -->
+ <div id="viewProjectDiv">
+  <input id="viewProjectID" style="display: none;" disabled></input>
+  <form id="viewForm" class="projectForm">
+   <label for="viewProjectName">Project Name</label>
+   <input type="text" id="viewProjectName" name="viewProjectName" required disabled>
+   <div class="splitDiv">
+    <label for="viewProjectStartDate">Start Date</label>
+    <input type="date" id="viewProjectStartDate" name="viewProjectStartDate" required disabled>
+   </div>
+   <div class="splitDiv">
+    <label for="viewProjectEndDate">End Date</label>
+    <input type="date" id="viewProjectEndDate" name="viewProjectEndDate" required disabled>
+   </div>
+   <div class="splitDiv">
+    <label for="viewProjectPriority">Priority</label>
+    <select name="viewProjectPriority" id="viewProjectPriority" disabled>
+     <option value="Low">Low</option>
+     <option value="Medium">Medium</option>
+     <option value="High">High</option>
+    </select>
+   </div>
+   <div class="splitDiv">
+    <label for="viewProjectStatus">Status</label>
+    <select name="viewProjectStatus" id="viewProjectStatus" disabled>
+     <option value="Not Started">Not Started</option>
+     <option value="In Progress">In Progress</option>
+     <option value="Completed">Completed</option>
+    </select>
+   </div>
+   <div class="splitDiv">
+    <label for="viewProjectAtRisk">At Risk</label>
+    <select name="viewProjectAtRisk" id="viewProjectAtRisk" disabled>
+     <option value="Yes">Yes</option>
+     <option value="No">No</option>
+    </select>
+   </div>
+   <label for="viewProjectOwner">Owner</label>
+   <input type="text" id="viewProjectOwner" required disabled>
+   <label for="viewProjectNotes">Notes</label>
+   <textarea name="" id="viewProjectNotes" cols="30" rows="10" disabled></textarea>
+   <button id="viewProjectBtn">Exit</button>
+  </form>
+ </div>
+
+ <script src="./assets/js/viewProj.js"></script>
+</body>
+
+</html>
