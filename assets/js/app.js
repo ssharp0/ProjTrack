@@ -138,6 +138,145 @@ const editProject = (projectRowIndex) => {
 }
 
 /*
+Chart Methods
+*/
+
+/**
+ * Function to create pie chart
+ * @param {Object} data contains data labels and totals to display
+ * @param {String} elementID element id to display chart
+ * @param {String} labelTitle represents label name
+ * @param {String} title represents chart title
+ * Returns nothing
+ */
+const createPieChart = (data, elementID, labelTitle, title) => {
+
+  const chartElement = document.getElementById(elementID)
+
+  const pieChartData = {
+    labels: data['labels'],
+    datasets: [{
+      label: labelTitle,
+      data: data['totals'],
+      backgroundColor: [
+        '#00ac46',
+        '#fd8c00',
+        '#dc0000'
+      ],
+      hoverOffset: 4
+    }]
+  }
+
+  const config = {
+    type: 'pie',
+    data: pieChartData,
+    options: {
+      plugins: {
+        legend: { position: 'bottom', align: 'center' },
+        title: {
+          display: true,
+          text: title
+        }
+      }
+    }
+  };
+
+  // create the new chart
+  new Chart(chartElement, config)
+
+}
+
+/**
+ * Function to create the project by priority pie chart
+ * Takes no parameters
+ * Returns nothing
+ */
+const genProjByPriorityChart = () => {
+
+  let lowCount = 0
+  let mediumCount = 0
+  let highCount = 0
+
+  const savedProjects = getAllProjects()
+
+  savedProjects.forEach(project => {
+
+    let projPriority = project['projectPriority']
+
+    switch (projPriority) {
+      case 'Low':
+        lowCount += 1
+        break;
+      case 'Medium':
+        mediumCount += 1
+        break;
+      case 'High':
+        highCount += 1
+        break;
+    }
+
+  });
+
+  const labels = ['Low', 'Medium', 'High']
+  const totals = [lowCount, mediumCount, highCount]
+  const data = { 'labels': labels, 'totals': totals }
+  createPieChart(data, 'projPriorityChart', ' Total', 'Projects By Priority')
+
+}
+
+/**
+ * Function to create the project by status chart
+ * Takes no parameters
+ * Returns nothing
+ */
+const genProjByStatusChart = () => {
+
+  let notStartedCount = 0
+  let inProgressCount = 0
+  let completedCount = 0
+
+  const savedProjects = getAllProjects()
+
+  savedProjects.forEach(project => {
+
+    let projStatus = project['projectStatus']
+
+    switch (projStatus) {
+      case 'Not Started':
+        notStartedCount += 1
+        break;
+      case 'In Progress':
+        inProgressCount += 1
+        break;
+      case 'Completed':
+        completedCount += 1
+        break;
+    }
+
+  });
+
+  const labels = ['Completed', 'In Progress', 'Not Started']
+  const totals = [completedCount, inProgressCount, notStartedCount]
+  const data = { 'labels': labels, 'totals': totals }
+  createPieChart(data, 'projStatusChart', ' Total', 'Projects By Status')
+
+}
+
+/**
+ * Function to display dashboard by calling methods
+ * Takes no parameters
+ * Returns nothing
+ */
+const displayDashboardPage = () => {
+
+  displayAllProjects()
+  genProjByPriorityChart()
+  genProjByStatusChart()
+
+}
+
+
+/*
 Event Listeners
 */
 
@@ -146,4 +285,4 @@ let searchProjectBtn = document.getElementById("searchProjectBtn")
 searchProjectBtn.addEventListener("click", searchProject)
 
 // READ and display all project on the HTML
-document.addEventListener("DOMContentLoaded", displayAllProjects())
+document.addEventListener("DOMContentLoaded", displayDashboardPage)
