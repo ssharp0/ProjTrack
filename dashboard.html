@@ -5,6 +5,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="./assets/css/dashboard.css">
  <link rel="stylesheet" href="./assets/css/style.css">
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  <title>ProjTrack</title>
 </head>
 <body>
@@ -20,15 +21,64 @@
     </nav>
   </div>
   
-  <!-- Charts Div -->
-  <div class="chartsContainerDiv">
-    <div class="chartsContainerHeaderDiv">Project Insights</div>
-    <div class="chartsTotalProjDiv">Total Projects Chart</div>
-    <div class="chartsPriorityDiv">Projects by Priority Chart</div>
-    <div class="chartsStatusDiv">Projects by Status Chart</div>
-    <div class="chartsAtRiskDiv">Projects at Risk Chart</div>
-    <div class="chartsCalendarDiv">Project Calendar</div>
+  <!-- Project Insights Header -->
+  <div class="chartsContainerHeaderDiv">
+    <h3>Project Insights</h3>
   </div>
+
+  <!-- Charts and Calendar Div -->
+  <div class="chartsContainerDiv">
+    <!-- project summary -->
+    <div class="projSummary">
+      <h2>Total Projects</h2>
+      <span id="totalProjCount"></span>
+      <br>
+      <hr>
+      <h3>Completion Rate</h3>
+      <span id="totalProjCompletionRate"></span>
+      <br>
+      <h3># Projects at Risk</h3>
+      <span id="totalProjAtRisk"></span>
+    </div>
+    <!-- chart of projects by priority -->
+    <div class="chartsPriorityDiv">
+      <canvas id="projPriorityChart"></canvas>
+    </div>
+    <!-- chart of projects by status -->
+    <div class="chartsStatusDiv">
+      <canvas id="projStatusChart"></canvas>
+    </div>
+    <!-- chart of projects by start month -->
+    <div class="chartsMonthlyDiv">
+      <canvas id="projMonthlyChart"></canvas>
+    </div>
+    <!-- calendar -->
+    <div class="calendarDiv">
+      <span id="dateMonthYear"></span>
+      <hr>
+      <div class="calendarBtns">
+        <button id="prevMonthBtn">Prev</button>
+        <button id="nextMonthBtn">Next</button>
+      </div>
+      <hr>
+      <div id="calendar">
+        <!-- unordered list of week days (i.e. Sunday, Monday, etc.) -->
+        <ul id="weekdays">
+          <li>S</li>
+          <li>M</li>
+          <li>T</li>
+          <li>W</li>
+          <li>T</li>
+          <li>F</li>
+          <li>S</li>
+        </ul>
+        <!-- unordered list to hold calendar dates through JS -->
+        <ul id="days"></ul>
+      </div>
+    </div>
+  </div>
+
+
   
   <!-- Search for a Project -->
   <div class="dashboardButtonsDiv">
