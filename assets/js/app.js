@@ -458,6 +458,283 @@ const genProjByMonthChart = () => {
   createBarChart(data, 'projMonthlyChart', ' Total', 'Projects By Start Month')
 }
 
+/**
+ * Function to intialize the current date in local storage
+ * Takes no parameters
+ * Returns nothing
+ */
+const initializeCurrentDate = () => {
+
+  // get the current date
+  let currentDate = new Date() // date object with current date and time
+  let month = currentDate.getMonth() // month as number 0-11
+  let year = currentDate.getFullYear() // four digit number YYYY
+
+  // set the date month year in local storage
+  localStorage.setItem("dateMonthYear", JSON.stringify({
+    month: month,
+    year: year
+  }))
+
+}
+
+/**
+ * Function to get the month and year from local storage to display calendar
+ * Takes no parameters
+ * @return {Object} date month and year object
+ */
+const getMonthYear = () => {
+
+  // get the date month year from local storage
+  const dateMonthYear = JSON.parse(localStorage.getItem('dateMonthYear')) || null
+  return dateMonthYear
+
+}
+
+/**
+ * Function to update the month year in local storage
+ * @param {Number} month month number to update to
+ * @param {Number} year year number to update to
+ * Returns nothing
+ */
+const updateDate = (month, year) => {
+
+  // update the date month year in local storage
+  localStorage.setItem("dateMonthYear", JSON.stringify({
+    month: month,
+    year: year
+  }))
+
+}
+
+/**
+ * Function to get all due dates
+ * Takes no paramters
+ * @return {Array} due dates
+ */
+const getDueDates = () => {
+
+  // get all saved projects and initialize empty array
+  const savedProjects = getAllProjects()
+  let dueDates = []
+
+  // for each project, add the end date to the due dates array
+  savedProjects.forEach(project => {
+    if (!dueDates.includes(project.projectEndDate)) {
+      dueDates.push(project.projectEndDate)
+    }
+  })
+
+  // return array of due dates
+  return dueDates
+  
+}
+
+/**
+ * Function to get the calendar month names
+ * Takes no paramters
+ * @return {Array} calendar months
+ */
+const getCalendarMonthsArray = () => {
+
+  // array to store calendar month names
+  const calendarMonths = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ]
+
+  // return the calendar months
+  return calendarMonths
+
+}
+
+/**
+ * Function to get calendar dates to display on calendar
+ * Takes no paramters
+ * @return {Object} calendar dates
+ */
+const getCalendarDates = () => {
+
+  // get the month, year and calendar months array
+  let dateObj = getMonthYear()
+  let month = dateObj['month']
+  let year = dateObj['year']
+  let calendarMonths = getCalendarMonthsArray()
+
+  // initilize empty object to store calculations
+  let calendarDates = {}
+
+  // update calendar dates object with calculated date details
+  calendarDates['month'] = month
+  calendarDates['monthName'] = calendarMonths[month]
+  calendarDates['year'] = year
+  calendarDates['firstDay'] = new Date(year, month, 1).getDay() // weekday as number 0-6
+  calendarDates['monthDaysCount'] = new Date(year, month + 1, 0).getDate() // day as number 1-31
+
+  // return calendar dates so calendar can be generated
+  return calendarDates
+
+}
+
+/**
+ * Function to check if the calandar date is a due date
+ * @param {String} calendarDate calendar date to check
+ * @return {String} string dueDate if date is a due date
+ */
+const checkIsDueDate = (calendarDate) => {
+
+  // get all due dates in an array
+  const dueDates = getDueDates()
+  let isDueDate = ''
+
+  // if the provided calendar date is a due date, update isDueDate
+  if (dueDates.includes(calendarDate)) {
+    isDueDate = 'dueDate'
+  } else {
+    isDueDate = 'notDueDate'
+  }
+
+  // return value
+  return isDueDate
+}
+
+/**
+ * Function to insert calendar days into calendar
+ * @param {String} calendarDates calendar dates used to insert days for month/year
+ * Returns nothing
+ */
+const insertCalendarDates = (calendarDates) => {
+
+  // clear the days list in the calendar
+  const days = document.getElementById("days")
+  days.innerHTML = ''
+
+  // add empty list nodes for anything before the first day
+  for (let i = 1; i <= calendarDates['firstDay']; i++) {
+
+    // create the list elemnet and append it to the days
+    let listElement = document.createElement("li")
+    listElement.appendChild(document.createTextNode(""))
+    days.appendChild(listElement)
+
+  }
+
+  // create a list of all days of the month
+  for (let i = 1; i <= calendarDates['monthDaysCount']; i++) {
+
+    // set day and month+1 to format i (day) into proper date format
+    let day = ''
+    let month = calendarDates['month'] + 1
+
+    // if i (i.e. the day) is less than 10 reformat with leading '0'
+    if (i < 10) {
+      day = '0' + i.toString()
+    } else {
+      day = i.toString()
+    }
+
+    // if the month is less than 10 reformat with leading '0'
+    if (month < 10) {
+      month = '0' + month
+    }
+
+    // format the calendar date of current i
+    let calendarDate = `${calendarDates['year']}-${month}-${day}`
+
+    // check if the calendar date is due date
+    let isDueDate = checkIsDueDate(calendarDate)
+
+    // add the day to the days list
+    let listElement = document.createElement("li")
+    listElement.appendChild(document.createTextNode(i))
+    listElement.setAttribute("class", `${isDueDate} calendarDay`)
+    days.appendChild(listElement)
+
+  }
+
+}
+
+/**
+ * Function to generate the calendar and call methods
+ * Takes no parameters
+ * Returns nothing
+ */
+const generateCalendar = () => {
+
+  // get the calendar dates
+  let calendarDates = getCalendarDates()
+
+  // display the month and year
+  const dateMonthYearEl = document.getElementById("dateMonthYear")
+  dateMonthYearEl.innerText = `${calendarDates['monthName']} - ${calendarDates['year']}`
+
+  // call method to insert all the days into the calendar
+  insertCalendarDates(calendarDates)
+
+}
+
+/**
+ * Function to increment the month and year (if needed)
+ * Takes no parameters
+ * Returns nothing
+ */
+const genNextMonth = () => {
+
+  // get the month and year that is currently stored
+  let dateObj = getMonthYear()
+  let month = dateObj['month']
+  let year = dateObj['year']
+
+  // increment the month
+  month += 1
+
+  // if it's out of range increment the year and reset the month
+  if (month > 11) {
+    month = 0
+    year +=1
+  }
+
+  // update the month and year in local storage and generate calendar
+  updateDate(month, year)
+  generateCalendar()
+}
+
+/**
+ * Function to decrenebt the month and year (if needed)
+ * Takes no parameters
+ * Returns nothing
+ */
+const genPrevMonth = () => {
+
+  // get the month and year that is currently stored
+  let dateObj = getMonthYear()
+  let month = dateObj['month']
+  let year = dateObj['year']
+
+  // decrement the month
+  month -= 1
+
+  // if the month is less than zero, decrement the year and reset month
+  if (month < 0) {
+    month = 11
+    year -= 1
+  }
+
+  // update the month and year in local storage and generate calendar
+  updateDate(month, year)
+  generateCalendar()
+}
+
 
 /**
  * Function to display dashboard by calling methods
@@ -467,11 +744,13 @@ const genProjByMonthChart = () => {
 const displayDashboardPage = () => {
 
   // call all methods to display dashboard data and metrics
+  initializeCurrentDate()
   genSummary()
   displayAllProjects()
   genProjByPriorityChart()
   genProjByStatusChart()
   genProjByMonthChart()
+  generateCalendar()
 
 }
 
@@ -479,6 +758,14 @@ const displayDashboardPage = () => {
 /*
 Event Listeners
 */
+
+// add event listener for the button to display next month calendar
+let nextMonthBtn = document.getElementById("nextMonthBtn")
+nextMonthBtn.addEventListener("click", genNextMonth)
+
+// add event listener for the button to display previous month calendar
+let prevMonthBtn = document.getElementById("prevMonthBtn")
+prevMonthBtn.addEventListener("click", genPrevMonth)
 
 // add event listener for the button to search for project
 let searchProjectBtn = document.getElementById("searchProjectBtn")
