@@ -142,6 +142,70 @@ Chart Methods
 */
 
 /**
+ * Function to generate general dashboard stats
+ * Takes no parameters
+ * Returns nothing
+ */
+const genSummary = () => {
+
+  // elements to display stats
+  const totalProjCountEl = document.getElementById("totalProjCount")
+  const totalProjCompletionRateEl = document.getElementById("totalProjCompletionRate")
+  const totalProjectsAtRiskEl = document.getElementById("totalProjAtRisk")
+
+  // get all the stats
+  const stats = calcStats()
+
+  // display the stats
+  totalProjCountEl.innerText = `${stats['totalProjects']}`
+  totalProjCompletionRateEl.innerText = `${stats['completionRate']}%`
+  totalProjectsAtRiskEl.innerText = `${stats['totalProjAtRisk']}`
+
+}
+
+/**
+ * Function to calculate dashboard metric stats
+ * Takes no parameters
+ * @return {Object} calculated stats for completion rate and projects at risk
+ */
+const calcStats = () => {
+
+  // get all projects
+  const savedProjects = getAllProjects()
+
+  // initialize stats object
+  let stats = {
+    'totalProjects': savedProjects.length,
+    'completionRate': 0,
+    'totalProjAtRisk': 0
+  }
+
+  // for each saved project count completed and projects at risk
+  savedProjects.forEach(project => {
+
+    let projStatus = project['projectStatus']
+    let projAtRisk = project['projectAtRisk']
+
+    // increment if the project status is completed
+    if (projStatus === 'Completed') {
+      let currentCount = stats['completionRate']
+      stats['completionRate'] = currentCount += 1
+    }
+
+    // increment if the project is at risk
+    if (projAtRisk === 'Yes') {
+      let currentCount = stats['totalProjAtRisk']
+      stats['totalProjAtRisk'] = currentCount += 1
+    }
+
+  });
+
+  // calculate and update the completeion rate and return the stats
+  stats['completionRate'] = Math.round((stats['completionRate'] / savedProjects.length) * 100)
+  return stats
+}
+
+/**
  * Function to create pie chart
  * @param {Object} data contains data labels and totals to display
  * @param {String} elementID element id to display chart
@@ -151,8 +215,10 @@ Chart Methods
  */
 const createPieChart = (data, elementID, labelTitle, title) => {
 
+  // assign the element to display
   const chartElement = document.getElementById(elementID)
 
+  // setup the pie chart data
   const pieChartData = {
     labels: data['labels'],
     datasets: [{
@@ -167,6 +233,7 @@ const createPieChart = (data, elementID, labelTitle, title) => {
     }]
   }
 
+  // configure the pie chart settings
   const config = {
     type: 'pie',
     data: pieChartData,
@@ -177,7 +244,92 @@ const createPieChart = (data, elementID, labelTitle, title) => {
           display: true,
           text: title
         }
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  };
+
+  // create the new chart
+  new Chart(chartElement, config)
+
+}
+
+/**
+ * Function to create bar chart
+ * @param {Object} data contains data labels and totals to display
+ * @param {String} elementID element id to display chart
+ * @param {String} labelTitle represents label name
+ * @param {String} title represents chart title
+ * Returns nothing
+ */
+const createBarChart = (data, elementID, labelTitle, title) => {
+
+  // assign the element to display
+  const chartElement = document.getElementById(elementID)
+
+  // setup the bar chart data
+  const barChartData = {
+    labels: data['labels'],
+    datasets: [{
+      label: '',
+      data: data['totals'],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)',
+        'rgba(201, 203, 207, 0.2)',
+        'rgba(201, 203, 207, 0.2)',
+        'rgba(201, 203, 207, 0.2)',
+        'rgba(201, 203, 207, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)',
+        'rgb(201, 203, 207)',
+        'rgb(201, 203, 207)',
+        'rgb(201, 203, 207)',
+        'rgb(201, 203, 207)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  // configure the bar chart settings
+  const config = {
+    type: 'bar',
+    data: barChartData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 },
+          grid: { display: false }
+        },
+        x: {
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: title
+        }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   };
 
@@ -193,12 +345,15 @@ const createPieChart = (data, elementID, labelTitle, title) => {
  */
 const genProjByPriorityChart = () => {
 
+  // variables to hold counts
   let lowCount = 0
   let mediumCount = 0
   let highCount = 0
 
+  // get all the saved projects
   const savedProjects = getAllProjects()
 
+  // for each project update the counts by priority
   savedProjects.forEach(project => {
 
     let projPriority = project['projectPriority']
@@ -217,9 +372,12 @@ const genProjByPriorityChart = () => {
 
   });
 
+  // create the data object
   const labels = ['Low', 'Medium', 'High']
   const totals = [lowCount, mediumCount, highCount]
   const data = { 'labels': labels, 'totals': totals }
+
+  // call the method to create the pie chart from calculated data
   createPieChart(data, 'projPriorityChart', ' Total', 'Projects By Priority')
 
 }
@@ -231,12 +389,15 @@ const genProjByPriorityChart = () => {
  */
 const genProjByStatusChart = () => {
 
+  // variables to hold counts
   let notStartedCount = 0
   let inProgressCount = 0
   let completedCount = 0
 
+  // get all the saved projects
   const savedProjects = getAllProjects()
 
+  // for each project update the counts by status
   savedProjects.forEach(project => {
 
     let projStatus = project['projectStatus']
@@ -255,12 +416,48 @@ const genProjByStatusChart = () => {
 
   });
 
+  // create data object
   const labels = ['Completed', 'In Progress', 'Not Started']
   const totals = [completedCount, inProgressCount, notStartedCount]
   const data = { 'labels': labels, 'totals': totals }
+
+  // call the method to create the pie chart from calculated data
   createPieChart(data, 'projStatusChart', ' Total', 'Projects By Status')
 
 }
+
+/**
+ * Function to create the project by month chart
+ * Takes no parameters
+ * Returns nothing
+ */
+const genProjByMonthChart = () => {
+
+  // fill 12 empty values representing months
+  let monthTotals = Array(12).fill(0)
+
+  // get all saved projects
+  const savedProjects = getAllProjects()
+
+  // for each saved project get the project start date
+  savedProjects.forEach(project => {
+
+    // update the month totals based on project start date
+    let projStartMonth = project['projectStartDate']
+    let date = new Date(projStartMonth)
+    let month = date.getMonth() // jan is 0
+    let currentCount = monthTotals[month]
+    monthTotals[month] = currentCount += 1
+  });
+
+  // create data object
+  const labels = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+  const data = { 'labels': labels, 'totals': monthTotals }
+
+  // call the method to create the bar chart from calculated data
+  createBarChart(data, 'projMonthlyChart', ' Total', 'Projects By Start Month')
+}
+
 
 /**
  * Function to display dashboard by calling methods
@@ -269,9 +466,12 @@ const genProjByStatusChart = () => {
  */
 const displayDashboardPage = () => {
 
+  // call all methods to display dashboard data and metrics
+  genSummary()
   displayAllProjects()
   genProjByPriorityChart()
   genProjByStatusChart()
+  genProjByMonthChart()
 
 }
 
