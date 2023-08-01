@@ -200,9 +200,16 @@ const calcStats = () => {
 
   });
 
-  // calculate and update the completeion rate and return the stats
-  stats['completionRate'] = Math.round((stats['completionRate'] / savedProjects.length) * 100)
+  // calculate a completion rate if there are projects
+  if (stats.totalProjects === 0) {
+    stats['completionRate'] = 0
+  } else {
+    stats['completionRate'] = Math.round((stats['completionRate'] / savedProjects.length) * 100)
+  }
+
+  // return all the stats
   return stats
+
 }
 
 /**
@@ -281,12 +288,12 @@ const createBarChart = (data, elementID, labelTitle, title) => {
         'rgba(75, 192, 192, 0.2)',
         'rgba(54, 162, 235, 0.2)',
         'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)',
-        'rgba(201, 203, 207, 0.2)',
-        'rgba(201, 203, 207, 0.2)',
-        'rgba(201, 203, 207, 0.2)',
-        'rgba(201, 203, 207, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)'
       ],
       borderColor: [
         'rgb(255, 99, 132)',
@@ -295,12 +302,12 @@ const createBarChart = (data, elementID, labelTitle, title) => {
         'rgb(75, 192, 192)',
         'rgb(54, 162, 235)',
         'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)',
-        'rgb(201, 203, 207)',
-        'rgb(201, 203, 207)',
-        'rgb(201, 203, 207)',
-        'rgb(201, 203, 207)',
-        'rgb(201, 203, 207)'
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)'
       ],
       borderWidth: 1
     }]
