@@ -1,14 +1,15 @@
 /* Formatting for Dashboard Chart Layouts */
 
-.chartsContainerHeaderDiv { 
+.chartsContainerHeaderDiv {
+	text-align: center; 
 	grid-area: chartHeader;
  font-size: 1.5em;
 	font-weight: bold;
 }
 
-.chartsTotalProjDiv { 
-	grid-area: chartTotal; 
- background-color: white; 
+.projSummary {
+	grid-area: chartTotal;
+	background-color: white;
 }
 
 .chartsPriorityDiv { 
@@ -21,28 +22,89 @@
  background-color: white; 
 }
 
-.chartsAtRiskDiv { 
+.chartsMonthlyDiv { 
 	grid-area: chartAtRisk; 
  background-color: white; 
 }
 
-.chartsCalendarDiv {
+.calendarDiv {
 	grid-area: chartCalendar;
  background-color: white; 
 }
 
 .chartsContainerDiv {
+  justify-content: center;
 	display: grid;
 	grid-template-areas:
-		'chartHeader chartHeader chartHeader chartHeader chartHeader'
 		'chartTotal chartPriority chartStatus chartAtRisk chartCalendar';
-	padding: 5px;
-	gap: 5px;
+	gap: 15px;
 }
 
 .chartsContainerDiv > div {
 	text-align: center;
-	padding: 25px;
+	padding: 10px;
+	max-width: 350px;
+	min-width: 350px;
+	box-shadow: 0 5px 5px rgba(55, 71, 74, 0.35);
+	border-radius: 2%;
+}
+
+/* Formatting for general summary */
+
+#totalProjCount {
+	font-size: 45px;
+	margin-bottom: 5px;
+}
+
+#totalProjCompletionRate, #totalProjAtRisk {
+	font-size: 25px;
+}
+
+/* Formatting for calendar */
+
+#dateMonthYear {
+ font-weight: bold;
+}
+
+#calendar {
+ padding: 20px;
+}
+
+#calendar ul {
+ text-align: center;
+ display: flex;
+ flex-wrap: wrap;
+ list-style: none;
+}
+
+#calendar li {
+ color: slategrey;
+ /* 7 days per week */
+ width: calc(100% / 7);
+}
+
+#calendar #weekdays {
+ cursor: default;
+ font-weight: bold;
+}
+
+#calendar #days li {
+ margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.calendarDay:hover {
+ background-color: lightgray;
+ color: white;
+	cursor: pointer;
+	border-radius: 10%;
+}
+
+.dueDate {
+	background-color: lightcoral;
+ color: white;
+ font-weight: bold;
+	border-radius: 10%;
 }
 
 /* Formatting for dashboard search and buttons div */
@@ -59,14 +121,17 @@
 .projectsTableDiv {
 	margin-right: 10%;
 	margin-left: 10%;
+ overflow-y: scroll;
+ height: 500px;
+ box-shadow: 0 5px 5px rgba(55, 71, 74, 0.35);
+ border: solid lightgray 2px;
 }
 
 #projectsTable {
 	width: 100%;
 	border-collapse: collapse;
- font-size: 0.85em;
+  font-size: 0.85em;
 	text-align: left;
-	box-shadow: 0 5px 5px rgba(55, 71, 74, 0.35);
 }
 
 #projectsTable th {
