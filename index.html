@@ -4,20 +4,30 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
  <link rel="stylesheet" href="./assets/css/style.css">
  <title>ProjTrack</title>
 </head>
 
 <body>
 
- <div class="projectHeader">
-  <h1>Welcome to ProjTrack</h1>
-  <h2>Easily Manage All of Your Projects and Get Key Insights</h2>
-  <h4>What would you like to do?</h4>
-  <a href=" ./newProj.html"><button>Create New Project</button></a>
-  <a href=" ./dashboard.html"><button>Go to Dashboard</button></a>
+ <div class="projectHeader text-center rounded-3">
+  <!-- container for app information and buttions -->
+  <div class="p-5 rounded-3 container-fluid">
+    <h1 class="display-4 fw-bold">Welcome to ProjTrack</h1>
+    <p class="fs-4 py-3">Easily Manage All of Your Projects and Get Key Insights</p>
+    <p class="fs-4">What Would you like to do?</p>
+    <!-- buttons -->
+    <div class="gap-2 mb-4 border-primary p-3">
+     <a href="./newProj.html"><button type="button" class="btn btn-light btn-lg px-4 me-md-4 fw-bold m-2">Create NewProject</button></a>
+     <a href="./dashboard.html"><button type="button" class="btn btn-light btn-lg px-4 me-md-4 fw-bold m-2">Go to dashboard</button></a>
+    </div>
+  </div>
  </div>
 
 </body>
+
+<script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
