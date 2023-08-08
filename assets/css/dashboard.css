@@ -5,6 +5,8 @@
 	grid-area: chartHeader;
  font-size: 1.5em;
 	font-weight: bold;
+	margin-top: 10%;
+	margin-bottom: 1%;
 }
 
 .projSummary {
@@ -138,12 +140,13 @@
 #projectsTable {
 	width: 100%;
 	border-collapse: collapse;
-  font-size: 0.85em;
+ font-size: 0.85em;
 	text-align: left;
 }
 
 #projectsTable th {
-	background-color: lightgray;
+	background-color: #011936;
+	color: white;
 }
 
 #projectsTable th,
@@ -151,6 +154,41 @@
 	padding: 10px 15px;
 }
 
-#projectsTable tbody tr:nth-of-type(even) {
-	background-color: white;
+#projectsTable tbody tr:hover {
+	cursor: pointer;
+}
+
+thead th {
+	position: sticky;
+	top: 0px;
+}
+
+/* Formatting for Table Row Icons/Buttons */
+
+.inconAction {
+	fill: aqua !important;
+}
+
+.editPill, .deletePill, .viewPill {
+	box-shadow: 0 7px 7px rgba(55, 71, 74, 0.35);
+}
+
+.deletePill {
+	border: solid rgb(216, 35, 15) 2px;
+	background-color: rgb(212, 28, 28);
+}
+
+.viewPill {
+	border: solid darkblue;
+	background-color: rgb(12, 12, 189);
+}
+
+.editPill {
+	border: solid lightgray 2px;
+	background-color: darkgray;
+}
+
+.editPill:hover, .deletePill:hover, .viewPill:hover {
+	background-color: #011936;
+	border-color: white;
 }
