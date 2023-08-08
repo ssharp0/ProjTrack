@@ -26,17 +26,13 @@ CREATE (Crud) operation and helper functions
 */
 
 /**
- * Function to create a new project record
- * in order to create (CREATE) the data
+ * Function to create a new project object
  * Takes no parameters
- * Returns nothing
+ * @return {Object} project object with details
  */
-const createProject = () => {
+const createProjObj = () => {
 
- const notificationDiv = document.getElementById("notificationDiv");
- notificationDiv.setAttribute("class", "")
-
- // grab the form information information
+ // assign a project ID and grab the form information
  let projectID = assignID()
  let projectName = document.getElementById("createProjectName").value
  let projectStartDate = document.getElementById("createProjectStartDate").value
@@ -47,9 +43,7 @@ const createProject = () => {
  let projectOwner = document.getElementById("createProjectOwner").value
  let projectNotes = document.getElementById("createProjectNotes").value
 
- // get all the saved projects
- let savedProjects = getAllProjects()
-
+ // create the object
  const project = {
   "projectID": projectID,
   "projectName": projectName,
@@ -62,30 +56,73 @@ const createProject = () => {
   "projectNotes": projectNotes
  }
 
+ // return the project with all the details
+ return project
+
+}
+
+/**
+ * Function to create a new project record
+ * in order to create (CREATE) the data
+ * Takes no parameters
+ * Returns nothing
+ */
+const createProject = () => {
+
+ // Fetch all the forms we want to apply custom Bootstrap validation styles to
+ const forms = document.querySelectorAll('.needs-validation')
+ const createProjForm = document.getElementById("createForm")
+
+ // create the project object and check for validation (i.e. no missing fields)
+ let project = createProjObj()
+ let validated = validateForm(project)
+
+ // stop the default for the form action if boostrap validation or internal validation fails
+ createProjForm.addEventListener("click", event => {
+  if (!createProjForm.checkValidity() || !validated) {
+   event.preventDefault()
+   event.stopPropagation()
+  }
+  createProjForm.classList.add('was-validated')
+ }, false)
+
+}
+
+/**
+ * Function to validate the form
+ * @param {Object} project project object with project details
+ * @return {Boolean} return true if no errors, otherwise false
+ */
+const validateForm = (project) => {
+
  // notify the user of missing required fields, if any
- if (!projectName || !projectStartDate || !projectEndDate || !projectOwner) {
-  let msg = 'Error. Please make sure you have provided a project name, dates, and owner.'
-  showNotification("error", msg, "N/A", "N/A")
+ if (!project.projectName || !project.projectStartDate || !project.projectEndDate || !project.projectOwner) {
+  let msg = 'Error. Please provide a project name, dates, and owner.'
   const errorMsgSpan = document.getElementById("createFormErrorMsg")
   errorMsgSpan.style.color = 'red'
   errorMsgSpan.innerText = 'Error. Please make sure you have provided a project name, dates, and owner.'
   event.preventDefault()
+  return false
  } else {
   // check for valid dates and names
-  validDate = validateStartEndDates(projectStartDate, projectEndDate, "createFormErrorMsg")
-  validName = validateName(projectName, "createFormErrorMsg")
+  validDate = validateStartEndDates(project.projectStartDate, project.projectEndDate, "createFormErrorMsg")
+  validName = validateName(project.projectName, "createFormErrorMsg")
   // if the name and dates are valid, add project to database
   if (validDate && validName) {
+   // get all the saved projects
+   let savedProjects = getAllProjects()
    const errorMsgSpan = document.getElementById("createFormErrorMsg")
    errorMsgSpan.innerText = ""
    savedProjects.push(project)
    localStorage.setItem('projects', JSON.stringify(savedProjects))
    // alert to notify success
    msg = `Success! Your new project has been saved.`
-   showNotification("success", msg, projectID, projectName)
+   showNotification("success", msg, project.projectID, project.projectName)
    event.preventDefault()
+   return true
   }
  }
+
 }
 
 /**
@@ -177,7 +214,7 @@ const validateName = (name, elementID) => {
      errorMsgSpan.style.color = 'red'
      errorMsgSpan.innerText = errorMsg
      event.preventDefault()
-     showNotification("error", errorMsg, "N/A", "N/A")
+     // showNotification("error", errorMsg, "N/A", "N/A")
      return false
     }
    }
@@ -242,11 +279,11 @@ const showNotification = (status, textString, projID, projName) => {
  notificationProjName.value = `Project Name: ${projName}`
 
  if (status === 'success') {
-  notificationDiv.style.backgroundColor = 'green'
   notificationContinueBtn.style.display = 'none'
   notificationResetBtn.style.display = 'none'
   notificationAddNewBtn.style.display = 'block'
   notificationViewAlltn.style.display = 'block'
+  notification.style.color = 'green'
  } else {
   notificationDiv.style.backgroundColor = 'red'
   notificationContinueBtn.style.display = 'block'
@@ -276,6 +313,7 @@ const resetForm = () => {
  */
 const confirmAddNew = () => {
  resetForm()
+ location.reload()
  createForm.style.display = 'block'
 }
 
@@ -286,6 +324,83 @@ const confirmAddNew = () => {
  */
 const navDashboard = () => {
  window.location.href = "./dashboard.html"
+}
+
+/**
+ * Function to set the forms start and end dates as current date
+ * Takes no parameters
+ * Returns nothing
+ */
+const setDefaultFormDates = () => {
+
+ // get the form elements
+ const projectStartDate = document.getElementById("createProjectStartDate")
+ const projectEndDate = document.getElementById("createProjectEndDate")
+
+ // get the current date
+ let today = new Date()
+ let year = today.getFullYear().toString()
+ let month = (today.getMonth() + 1).toString().padStart(2, 0)
+ let day = today.getDate().toString().padStart(2, 0)
+
+ // reformat the date
+ todayFormatted = year + '-' + month + '-' + day
+
+ // update the form with the current date
+ projectStartDate.value = todayFormatted
+ projectEndDate.value = todayFormatted
+
+}
+
+/**
+ * Function to generate the list of project owners for dropdown
+ * Takes no parameters
+ * Returns nothing
+ */
+const genDataListProjOwners = () => {
+
+ // get all saved projects and initialize an empty array
+ let savedProjects = getAllProjects()
+ let owners = []
+
+ // for each saved project, add the owner to the array (not duplicated)
+ savedProjects.forEach(project => {
+  owner = project['projectOwner']
+  if (owners.indexOf(owner) === -1) {
+   owners.push(owner)
+  }
+ })
+
+ // sort the array a-z
+ owners.sort()
+
+ // get the elements to update on the form
+ const projectOwner = document.getElementById("createProjectOwner")
+ const projectOwnerOptions = document.getElementById("createProjectOwnerOptions")
+ projectOwner.innerHTML = ''
+
+ // for each owner, insert the option html
+ owners.forEach(owner => {
+  let optionElement = document.createElement("option")
+  optionElement.setAttribute("value", owner)
+  projectOwnerOptions.appendChild(optionElement)
+ })
+
+}
+
+/**
+ * Function to call methods to display information on page
+ * Takes no parameters
+ * Returns nothing
+ */
+const displayFormPage = () => {
+
+ // set the default form dates
+ setDefaultFormDates()
+
+ // generate the list of project owners in the form
+ genDataListProjOwners()
+ 
 }
 
 /*
@@ -311,3 +426,6 @@ notificationContinueBtn.addEventListener("click", toggleFade)
 // Event handler for reseting the input values
 let notificationResetBtn = document.getElementById("notificationResetBtn")
 notificationResetBtn.addEventListener("click", resetForm)
+
+// Event listener to display dates and generate project owners when page is loaded
+document.addEventListener("DOMContentLoaded", displayFormPage)
