@@ -4,32 +4,52 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="./assets/css/dashboard.css">
- <link rel="stylesheet" href="./assets/css/style.css">
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+ <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+ <link rel="stylesheet" href="./assets/css/style.css">
  <title>ProjTrack</title>
 </head>
 <body>
   
   <!-- Header Bar -->
-  <div class="headerBar">
-    <h1 class="heading1">ProjTrack</h1>
-    <h3 class="heading2">Project Dashboard</h3>
-    <nav class="navBar"">
-      <a href="./newProj.html"><button>Create New Project</button></a>
-      <a href=" ./dashboard.html"><button>Dashboard</button></a>
-      <a href=" ./index.html"><button>Home</button></a>
-    </nav>
-  </div>
+  <nav class="navbar navbar-expand-lg fixed-top appNav shadow-lg p-3">
+    <div class="container-fluid">
+      <a href="./index.html" class="navbar-brand navBrand">ProjTrack</a>
+      <button class="navbar-toggler navBarToggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarNav"
+        aria-controls="navBarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse m-2 ps-3" id="navBarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item pe-3">
+            <a class="nav-link navLink" href="./index.html"><img src="./assets/images/house-fill.svg" class="icon"
+                alt=" "> Home</a>
+          </li>
+          <li class="nav-item pe-3">
+            <a class="nav-link navLink" href="./newProj.html"><img
+                src="./assets/images/plus-circle-fill.svg" class="icon" alt=" "> Add New Project</a>
+          </li>
+          <li class="nav-item pe-3">
+            <a class="nav-link navLinkActive" href="./dashboard.html" aria-current="page" ><img src="./assets/images/clipboard-data-fill.svg"
+                class="iconActive" alt=" "> Dashboard</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   
   <!-- Project Insights Header -->
   <div class="chartsContainerHeaderDiv">
-    <h3>Project Insights</h3>
+    <h1>Project Insights</h1>
   </div>
 
   <!-- Charts and Calendar Div -->
-  <div class="chartsContainerDiv">
+  <div class="chartsContainerDiv row">
     <!-- project summary -->
-    <div class="projSummary">
+    <div class="projSummary col">
       <h2>Total Projects</h2>
       <span id="totalProjCount"></span>
       <br>
@@ -41,24 +61,24 @@
       <span id="totalProjAtRisk"></span>
     </div>
     <!-- chart of projects by priority -->
-    <div class="chartsPriorityDiv">
+    <div class="chartsPriorityDiv col">
       <canvas id="projPriorityChart"></canvas>
     </div>
     <!-- chart of projects by status -->
-    <div class="chartsStatusDiv">
+    <div class="chartsStatusDiv col">
       <canvas id="projStatusChart"></canvas>
     </div>
     <!-- chart of projects by start month -->
-    <div class="chartsMonthlyDiv">
+    <div class="chartsMonthlyDiv col">
       <canvas id="projMonthlyChart"></canvas>
     </div>
     <!-- calendar -->
-    <div class="calendarDiv">
+    <div class="calendarDiv col">
       <span id="dateMonthYear"></span>
       <hr>
       <div class="calendarBtns">
-        <button id="prevMonthBtn">Prev</button>
-        <button id="nextMonthBtn">Next</button>
+        <button id="prevMonthBtn" class="btn btn-sm btn-secondary">Prev</button>
+        <button id="nextMonthBtn" class="btn btn-sm btn-secondary">Next</button>
       </div>
       <hr>
       <div id="calendar">
@@ -86,34 +106,59 @@
   <!-- Search for a Project -->
   <div class="dashboardButtonsDiv">
     <input type="text" id="searchProjectVal" placeholder="Project Name...">
-    <button id="searchProjectBtn">Search Project</button>
+    <button id="searchProjectBtn" class=" btn btn-success">Search Project</button>
     <!-- button to generate seed data in local storage -->
-    <button id="genSeedDataBtn">Generate Seed Data</button>
-    <!-- button to delete all projects -->
-    <button id="deleteAllProjBtn">Delete All Projects</button>
+    <button id="genSeedDataBtn" class=" btn btn-primary">Generate Seed Data</button>
+    <!-- Button trigger modal to delete all projects -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteAllProj" id="triggerModalDeleteAllProj">
+      Delete All Projects
+    </button>
   </div>
 
   <!-- basic UI for Reading project data -->
-  <div class="projectsTableDiv">
-    <table id="projectsTable">
-     <tr>
-      <th>ID</th>
-      <th>Project Name</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Priority</th>
-      <th>Status</th>
-      <th>At Risk</th>
-      <th>Owner</th>
-      <th>Notes</th>
-      <!-- edit button for particular record -->
-      <th></th>
-      <!-- delete button for particular record -->
-      <th></th>
-      <!-- view button for particular record -->
-      <th></th>
-     </tr>
+  <div class="projectsTableDiv rounded-3">
+    <table id="projectsTable" class="table table-hover table-striped rounded-3">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Project Name</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col">At Risk</th>
+          <th scope="col">Owner</th>
+          <th scope="col">Notes</th>
+          <!-- edit button for particular record -->
+          <th scope="col" class="text-center">Edit</th>
+          <!-- delete button for particular record -->
+          <th scope="col" class="text-center">Delete</th>
+          <!-- view button for particular record -->
+          <th scope="col" class="text-center">View</th>
+        </tr>
+        <tbody id="projectsTableBody" class="table-group-divider"></tbody>
+      </thead>
     </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalDeleteAllProj" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: #011936;">Confirm Delete</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you would like to delete all projects? This action cannot be undone.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="deleteAllProjBtn">Delete All Projects</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- footer -->
@@ -121,6 +166,7 @@
     <p class="copyright"> ProjTrack 2023 </p>
   </footer>
 
+ <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
  <script src="./assets/js/app.js"></script>
  <script src="./assets/js/deleteProj.js"></script>
  <script src="./assets/js/seedData.js"></script>
