@@ -4,6 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- bootstrap css framework -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <title>ProjTrack - Add New Project</title>
 </head>
@@ -11,89 +16,168 @@
 <body>
 
   <!-- Header Bar -->
-  <div class="headerBar">
-    <h1 class="heading1">ProjTrack</h1>
-    <h3 class="heading2">Enter A New Project</h3>
-    <nav class="navBar"">
-      <a href="./newProj.html"><button>Create New Project</button></a>
-      <a href=" ./dashboard.html"><button>Dashboard</button></a>
-    </nav>
-  </div>
+  <nav class="navbar navbar-expand-lg fixed-top appNav shadow-lg p-3">
+    <div class="container-fluid">
+      <a href="./index.html" class="navbar-brand navBrand">ProjTrack</a>
+      <button class="navbar-toggler navBarToggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarNav"
+        aria-controls="navBarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse m-2 ps-3" id="navBarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item pe-3">
+            <a class="nav-link navLink" href="./index.html"><img src="./assets/images/house-fill.svg" class="icon" alt=" "> Home</a>
+          </li>
+          <li class="nav-item pe-3">
+            <a class="nav-link navLinkActive" aria-current="page" href="./newProj.html"><img src="./assets/images/plus-circle-fill.svg" class="iconActive" alt=" "> Add New Project</a>
+          </li>
+          <li class="nav-item pe-3">
+            <a class="nav-link navLink" href="./dashboard.html"><img src="./assets/images/clipboard-data-fill.svg" class="icon" alt=" "> Dashboard</a>
+          </li>  
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <!-- Notifications for user -->
+  <div class="text-center rounded-3">
   <div id="notificationDiv">
     <div class="notificationMsgDiv">
-      <span id="notification" class="alert"></span>
+      <span id="notification" class="alert" class="fw-bold fs-1"></span>
     </div>
     <br>
     <div class="notificationInputDiv">
-      <input type="text" id="notificationProjID" disabled>
-      <input type="text" id="notificationProjName" disabled>
-    </div>
-    <div class="notificationBtnsDiv">
-      <button class="notificationBtn" id="notificationAddNewBtn" style="display: none;">Add Another Project</button>
-      <br>
-      <button class="notificationBtn" id="notificationViewAlltn" style="display: none;">View All Projects</button>
-      <br>
-      <button class="notificationBtn" id="notificationContinueBtn" style="display: none;">Continue</button>
-      <br>
-      <button class="notificationBtn" id="notificationResetBtn" style="display: none;">Reset</button>
+      <div class="row mb-3">
+        <div class="col-6">
+          <input type="text" class="form-control text-center fw-bold"" id="notificationProjID" disabled>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control text-center fw-bold" id="notificationProjName" disabled>
+        </div>
+      </div>
+      <div class="notificationBtnsDiv gap-2">
+        <button class="notificationBtn btn btn-success mb-2" id="notificationAddNewBtn" style="display: none;">Add Another Project</button>
+        <button class="notificationBtn btn btn-secondary mb-2" id="notificationViewAlltn" style="display: none;">View All Projects</button>
+        <br>
+        <button class="notificationBtn" id="notificationContinueBtn" style="display: none;">Continue</button>
+        <button class="notificationBtn" id="notificationResetBtn" style="display: none;">Reset</button>
+      </div>
     </div>
   </div>
 
   <!-- Div for New Project Form -->
   <div id="createNewProjectDiv">
-    <form id="createForm" class="projectForm">
-      <div class="splitDiv">
-        <label for="createProjectName">Project Name</label>
-        <input type="text" id="createProjectName" name="createProjectName" required>
+
+    <form id="createForm" class="projectForm needs-validation" novalidate>
+
+      <div class="col-12 mb-4">
+        <label for="createProjectName" class="visually-hidden">Project Name</label>
+        <div class="input-group">
+          <div class="input-group-text col-4">Project Name</div>
+          <input type="text" class="form-control" name="createProjectName" id="createProjectName" placeholder="Project Name..." required>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Please provide a unique project name.</div>
+        </div>
+        <div id="createProjectNameInvalid" class="invalid-feedback"></div>
       </div>
-      <div class="splitDiv">
-        <label for="createProjectStartDate">Start Date</label>
-        <input type="date" id="createProjectStartDate" name="createProjectStartDate" required>
+
+      <div class="col-12 mb-4">
+        <label for="createProjectStartDate" class="visually-hidden">Start Date</label>
+        <div class="input-group">
+          <div class="input-group-text col-4 text-center">Start Date</div>
+          <input type="date" class="form-control" name="createProjectStartDate" id="createProjectStartDate" required>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Please provide the project's start date.</div>
+        </div>
       </div>
-      <div class="splitDiv">
-        <label for="createProjectEndDate">End Date</label>
-        <input type="date" id="createProjectEndDate" name="createProjectEndDate" required>
+
+      <div class="col-12 mb-4">
+        <label for="createProjectEndDate" class="visually-hidden">End Date</label>
+        <div class="input-group">
+          <div class="input-group-text col-4 text-center">End Date</div>
+          <input type="date" class="form-control" name="createProjectEndDate" id="createProjectEndDate" required>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Please provide the project's end date.</div>
+        </div>
       </div>
-      <div class="splitDiv">
-        <label for="createProjectPriority">Priority</label>
-        <select name="createProjectPriority" id="createProjectPriority">
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
+
+      <div class="col-12 mb-4">
+        <label for="createProjectPriority" class="visually-hidden">Priority</label>
+        <div class="input-group">
+          <div class="input-group-text col-4 text-center">Priority</div>
+          <select name="createProjectPriority" id="createProjectPriority" class="form-select" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Please provide the project's priority level.</div>
+        </div>
       </div>
-      <div class="splitDiv">
-        <label for="createProjectStatus">Status</label>
-        <select name="createProjectStatus" id="createProjectStatus">
-          <option value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-        </select>
+
+      <div class="col-12 mb-4">
+        <label for="createProjectStatus" class="visually-hidden">Status</label>
+        <div class="input-group">
+          <div class="input-group-text col-4 text-center">Status</div>
+          <select name="createProjectStatus" id="createProjectStatus" class="form-select" required>
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Please provide the project's current status.</div>
+        </div>
       </div>
-      <div class="splitDiv">
-        <label for="createProjectAtRisk">At Risk</label>
-        <select name="createProjectAtRisk" id="createProjectAtRisk">
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
+
+      <div class="col-12 mb-4">
+        <label for="createProjectAtRisk" class="visually-hidden">At Risk</label>
+        <div class="input-group">
+          <div class="input-group-text col-4 text-center">At Risk?</div>
+          <select name="createProjectAtRisk" id="createProjectAtRisk" class="form-select" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Please select yes if the project is at risk.</div>
+        </div>
       </div>
-      <div class="splitDiv">
-        <label for="createProjectOwner">Owner</label>
-        <input type="text" id="createProjectOwner" required>
+
+      <div class="col-12 mb-4">
+        <label for="createProjectOwner" class="visually-hidden">Owner</label>
+        <div class="input-group">
+          <div class="input-group-text col-4 text-center">Owner</div>
+          <input type="text" class="form-control" list="createProjectOwnerOptions" name="createProjectOwner" id="createProjectOwner" placeholder="Project Owner..." required>
+          <datalist id="createProjectOwnerOptions"></datalist>
+          <div class="valid-feedback"></div>
+          <div class="invalid-feedback">Please provide the project's owner. You can select from the list of current owners.</div>
+        </div>
       </div>
-      <br>
-      <label for="createProjectNotes">Notes</label>
-      <textarea name="" id="createProjectNotes" cols="30" rows="10" placeholder="Type here..."></textarea>
-      <button id="createProjectBtn">Save</button>
-      <button type="reset">Reset</button>
+
+      <div class="col-12 mb-4">
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Write some notes..." id="createProjectNotes" maxlength="200"></textarea>
+          <label for="createProjectNotes">Project Notes</label>
+        </div>
+      </div>
+
+      <div class="col-12 mt-2">
+        <button type="button" class="btn btn-md btn-outline-success fw-bold mb-2" id="createProjectBtn">Save</button>
+        <button type="reset" class="btn btn-outline-secondary fw-bold mb-2">Clear All Values</button>
+        <a href="./dashboard.html"><button type="button" class="btn btn-outline-warning fw-bold mb-2">Cancel</button></a>
+      </div>
+
     </form>
+
+    <!-- error message handling -->
     <br>
     <span id="createFormErrorMsg"></span>
   </div>
 
+  <!-- bootstrap js bundle -->
+  <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- application script -->
   <script src="./assets/js/createProj.js"></script>
+  
 </body>
 
 </html>
