@@ -43,14 +43,9 @@ const deleteAllProjects = () => {
 
  // if there are projects confirm with the user
  if (savedProjects.length) {
-  response = confirmAction("delete all projects")
-  // if the response was confirmed, then delete all records
-  if (response === 'confirmed') {
    // clear the database
    localStorage.clear()
-   alert("All projects have been deleted!")
    location.reload()
-  }
  } else {
   alert("There are no projects to delete!")
  }
