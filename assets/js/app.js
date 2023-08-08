@@ -48,7 +48,7 @@ const displayAllProjects = () => {
 const insertProjectRecord = (project, rowIndex) => {
 
  // get the project table element and insert a row at the end
- const projectTable = document.getElementById("projectsTable")
+ const projectTable = document.getElementById("projectsTableBody")
  let row = projectTable.insertRow(-1)
 
  // assign data id to element
@@ -68,6 +68,13 @@ const insertProjectRecord = (project, rowIndex) => {
  let deleteButton = row.insertCell(10)
  let viewButton = row.insertCell(11)
 
+ // slice off after 15 characters to limit display on table
+ charSlice = 15
+ let projectNotesSliced = project.projectNotes.slice(0, charSlice)
+ if (project.projectNotes.length > 10) {
+  projectNotesSliced += '...'
+ }
+
  // display the associated db value from the project object
  projectID.innerText = project.projectID
  projectName.innerText = project.projectName
@@ -77,19 +84,22 @@ const insertProjectRecord = (project, rowIndex) => {
  projectStatus.innerText = project.projectStatus
  projectAtRisk.innerText = project.projectAtRisk
  projectOwner.innerText = project.projectOwner
- projectNotes.innerText = project.projectNotes
+ projectNotes.innerText = projectNotesSliced
 
  // insert an edit button for the row
- let editBtn = `<button onclick="editProject(${rowIndex})">Edit</button>`
+ let editBtn = `<span class="editPill badge rounded-pill" onclick="editProject(${rowIndex})"><img class="iconAction" src="./assets/images/pencil-fill.svg"> Edit</img></span>`
  editButton.innerHTML = editBtn
+ editButton.setAttribute("class", "text-center")
 
  // insert an edit button for the row
- let deleteBtn = `<button onclick="deleteProject(${rowIndex})">Delete</button>`
+ let deleteBtn = `<span class="deletePill badge rounded-pill" onclick="deleteProject(${rowIndex})"><img class="iconAction" src="./assets/images/trash.svg"> Delete</img></span>`
  deleteButton.innerHTML = deleteBtn
+ deleteButton.setAttribute("class", "text-center")
 
  // insert a view button for the row
- let viewBtn = `<button onclick="viewProject(${rowIndex})">View</button>`
+ let viewBtn = `<span class="viewPill badge rounded-pill" onclick="viewProject(${rowIndex})"><img class="iconAction" src="./assets/images/info-circle-fill.svg"> View</img></span>`
  viewButton.innerHTML = viewBtn
+ viewButton.setAttribute("class", "text-center")
 
 }
 
@@ -99,8 +109,8 @@ const insertProjectRecord = (project, rowIndex) => {
  * Returns nothing
  */
 const viewProject = (projectRowIndex) => {
- localStorage.setItem("viewProjIndex", projectRowIndex)
- window.location.href = "./viewProj.html"
+  localStorage.setItem("viewProjIndex", projectRowIndex)
+  window.location.href = "./viewProj.html"
 }
 
 /**
@@ -133,8 +143,8 @@ UPDATE (crUd) operation
  * Returns nothing
  */
 const editProject = (projectRowIndex) => {
- localStorage.setItem("editProjIndex", projectRowIndex)
- window.location.href = "./editProj.html"
+  localStorage.setItem("editProjIndex", projectRowIndex)
+  window.location.href = "./editProj.html"
 }
 
 /*
@@ -534,7 +544,7 @@ const getDueDates = () => {
 
   // return array of due dates
   return dueDates
-  
+ 
 }
 
 /**
@@ -708,7 +718,7 @@ const genNextMonth = () => {
   // if it's out of range increment the year and reset the month
   if (month > 11) {
     month = 0
-    year +=1
+    year += 1
   }
 
   // update the month and year in local storage and generate calendar
