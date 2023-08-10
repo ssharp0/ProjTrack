@@ -18,17 +18,25 @@ const deleteProject = (projectRowIndex) => {
  // get all projects and find the project ID to get user confirmation to delete
  let savedProjects = getAllProjects()
  let targetID = savedProjects[projectRowIndex].projectID
- response = confirmAction(`delete project ${targetID}`)
+ let targetName = savedProjects[projectRowIndex].projectName
 
- // if the user confirms to delete then delete the record
- if (response === 'confirmed') {
-  // exclude the selected project and update database
+ // update the modal body with the project details
+ const modalDeleteProjBody = document.getElementById("modalDeleteProjBody")
+ modalDeleteProjBody.innerHTML = `Are you sure you want to delete project ${targetID} | ${targetName}? This action cannot be undone.`
+
+ // grab the delete project btn from modal
+ const deleteProjBtn = document.getElementById("deleteProjBtn")
+
+ // add event listener when user clicks to confirm deletion
+ deleteProjBtn.addEventListener("click", event => {
+  // remove the specific project
   savedProjects = savedProjects.filter((project, index) => index.toString() !== projectRowIndex.toString())
   localStorage.setItem('projects', JSON.stringify(savedProjects))
-  // notify user of successful action
-  alert(`Successfully deleted project ${targetID}!`)
+  // display feedback mmessage to notify user of success
+  setFeedbackMsg(`Successfully deleted project ${targetID}!`)
   location.reload()
- }
+  })
+
 }
 
 /**
