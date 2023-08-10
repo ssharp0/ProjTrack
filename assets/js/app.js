@@ -92,7 +92,7 @@ const insertProjectRecord = (project, rowIndex) => {
  editButton.setAttribute("class", "text-center")
 
  // insert an edit button for the row
- let deleteBtn = `<span class="deletePill badge rounded-pill" onclick="deleteProject(${rowIndex})"><img class="iconAction" src="./assets/images/trash.svg"> Delete</img></span>`
+ let deleteBtn = `<span class="deletePill badge rounded-pill" onclick="deleteProject(${rowIndex})" data-bs-toggle="modal" data-bs-target="#modalDeleteProj"><img class="iconAction" src="./assets/images/trash.svg"> Delete</img></span>`
  deleteButton.innerHTML = deleteBtn
  deleteButton.setAttribute("class", "text-center")
 
