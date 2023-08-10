@@ -45,10 +45,74 @@ const deleteAllProjects = () => {
  if (savedProjects.length) {
    // clear the database
    localStorage.clear()
+   setFeedbackMsg(`All ${savedProjects.length} projects deleted!`)
    location.reload()
  } else {
-  alert("There are no projects to delete!")
+   setFeedbackMsg("There are no projects to delete!")
+   location.reload()
  }
+}
+
+/**
+ * Funtion to set the message to display
+ * @param msg message to display
+ * Returns nothing
+ */
+const setFeedbackMsg = (msg) => {
+  localStorage.setItem("feedbackMsg", msg)
+}
+
+/**
+ * Funtion to remove feedback message
+ * Takes no pramters
+ * Returns nothing
+ */
+const removefeedbackMsg = () => {
+  localStorage.removeItem("feedbackMsg")
+}
+
+/**
+ * Function to display toast feedback with provided message
+ * @param {String} msg message to display on toast
+ * Returns nothing
+ */
+const displayToastFeedback = (msg) => {
+
+  // get the current date for timestamp
+  let currTime = new Date()
+  currTime = currTime.toLocaleTimeString('en-US')
+
+  // add the current time to the feedback
+  const timeStamp = document.getElementById("timeStamp")
+  timeStamp.innerHTML = currTime
+
+  // add the message to the feedback
+  const feedbackToastBody = document.getElementById("feedbackToastBody")
+  feedbackToastBody.innerHTML = msg
+
+  // show the toast message
+  const feedbackToast = document.getElementById('feedbackToast')
+  const feedbackToastBoostrap = bootstrap.Toast.getOrCreateInstance(feedbackToast)
+  feedbackToastBoostrap.show()
+
+}
+
+/**
+ * Function to check if a toast message should be displayed
+ * Takes no parameters
+ * Returns nothing
+ */
+const checkforfeedbackMsg = () => {
+
+  // check local storage if any 
+  const feedbackMsg = localStorage.getItem('feedbackMsg') || ''
+
+  // if there is feedback, display it to user
+  if (feedbackMsg.length > 0) {
+    displayToastFeedback(feedbackMsg)
+  }
+  // remove feedback to reset
+  removefeedbackMsg()
 }
 
 /**
@@ -77,3 +141,6 @@ Event Listeners
 // Event Handler to delete all projects
 let deleteAllProjBtn = document.getElementById("deleteAllProjBtn")
 deleteAllProjBtn.addEventListener("click", deleteAllProjects)
+
+// Check for any feedback to provide to user
+document.addEventListener("DOMContentLoaded", checkforfeedbackMsg)
