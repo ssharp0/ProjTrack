@@ -141,13 +141,13 @@
     </table>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal Delete All Projects -->
   <div class="modal fade" id="modalDeleteAllProj" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    aria-labelledby="staticBackdropLabelAllProj" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: #011936;">Confirm Delete</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabelAllProj">Confirm Delete</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -156,6 +156,24 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-danger" id="deleteAllProjBtn">Delete All Projects</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Delete Specific Project-->
+  <div class="modal fade" id="modalDeleteProj" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabelProj" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabelProj">Confirm Delete</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalDeleteProjBody"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="deleteProjBtn">Delete Project</button>
         </div>
       </div>
     </div>
