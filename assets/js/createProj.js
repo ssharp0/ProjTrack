@@ -186,7 +186,6 @@ const validateStartEndDates = (start, end, elementID) => {
   errorMsgSpan.style.color = 'red'
   errorMsgSpan.innerText = errorMsg
   event.preventDefault()
-  showNotification("error", errorMsg, "N/A", "N/A")
   return false
  }
  return true
@@ -214,7 +213,6 @@ const validateName = (name, elementID) => {
      errorMsgSpan.style.color = 'red'
      errorMsgSpan.innerText = errorMsg
      event.preventDefault()
-     // showNotification("error", errorMsg, "N/A", "N/A")
      return false
     }
    }
@@ -299,10 +297,9 @@ const showNotification = (status, textString, projID, projName) => {
  * Returns nothing
  */
 const resetForm = () => {
- const createForm = document.getElementById("createForm")
+ resetFormValues()
  const createNewProjectDiv = document.getElementById("createNewProjectDiv")
  createNewProjectDiv.style.display = 'block'
- createForm.reset()
  toggleFade()
 }
 
@@ -389,6 +386,27 @@ const genDataListProjOwners = () => {
 }
 
 /**
+ * Function to set all input values to null
+ * Takes no parameters
+ * Returns nothing
+ */
+const resetFormValues = () => {
+ const createForm = document.getElementById("createForm")
+ createForm.reset()
+}
+
+/**
+ * Function to enable the form informational popover
+ * Takes no parameters
+ * Returns nothing
+ */
+const enablePopover = () => {
+ // enable the form popover
+ const formInfoPopover = document.getElementById("formInfoPopover")
+ new bootstrap.Popover(formInfoPopover)
+}
+
+/**
  * Function to call methods to display information on page
  * Takes no parameters
  * Returns nothing
@@ -400,7 +418,26 @@ const displayFormPage = () => {
 
  // generate the list of project owners in the form
  genDataListProjOwners()
- 
+
+ // enable form popover
+ enablePopover()
+
+ // count text area text
+ countTextChar()
+
+}
+
+/**
+ * Function to count the input text in text area form
+ * Takes no parameters
+ * Returns nothing
+ */
+const countTextChar = () => {
+ projNotesEl = document.getElementById("createProjectNotes")
+ projNotesAllowedLen = projNotesEl.maxLength
+ projNotesLen = projNotesEl.value.length
+ charCounterEl = document.getElementById("charCounter")
+ charCounterEl.innerHTML = `Characters Remaining: ${projNotesAllowedLen - projNotesLen}`
 }
 
 /*
@@ -423,9 +460,21 @@ notificationViewAlltn.addEventListener("click", navDashboard)
 let notificationContinueBtn = document.getElementById("notificationContinueBtn")
 notificationContinueBtn.addEventListener("click", toggleFade)
 
-// Event handler for reseting the input values
+// Event handler for reseting the input values when adding a new project
 let notificationResetBtn = document.getElementById("notificationResetBtn")
 notificationResetBtn.addEventListener("click", resetForm)
+
+// Event handler to reset all form values
+let createProjectResetBtn = document.getElementById("createProjectResetBtn")
+createProjectResetBtn.addEventListener("click", resetFormValues)
+
+// Event listener to count character input in text area
+let createProjectNotesTxtArea = document.getElementById("createProjectNotes")
+createProjectNotesTxtArea.addEventListener("keyup", countTextChar)
+
+// Event listener to cancel form entry
+let createProjectCancelBtn = document.getElementById("createProjectCancelBtn")
+createProjectCancelBtn.addEventListener("click", navDashboard)
 
 // Event listener to display dates and generate project owners when page is loaded
 document.addEventListener("DOMContentLoaded", displayFormPage)
