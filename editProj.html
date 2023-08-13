@@ -2,98 +2,189 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="./assets/css/style.css">
- <title>ProjTrack - Edit Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>ProjTrack - Edit Project</title>
 </head>
 
 <body>
 
- <!-- Header Bar -->
- <div class="headerBar">
-  <h1 class="heading1">ProjTrack</h1>
-  <h3 id="editProjIDHeading" class="heading2"></h3>
-  <nav class="navBar"">
-   <a href=" ./newProj.html"><button>Create New Project</button></a>
-   <a href=" ./dashboard.html"><button>Dashboard</button></a>
-  </nav>
- </div>
+    <!-- Header Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top appNav shadow-lg p-3">
+        <div class="container-fluid">
+            <a href="./index.html" class="navbar-brand navBrand">ProjTrack</a>
+            <button class="navbar-toggler navBarToggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navBarNav" aria-controls="navBarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse m-2 ps-3" id="navBarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item pe-3">
+                        <a class="nav-link navLink" href="./index.html"><img src="./assets/images/house-fill.svg"
+                                class="icon" alt=" "> Home</a>
+                    </li>
+                    <li class="nav-item pe-3">
+                        <a class="nav-link navLink" aria-current="page" href="./newProj.html"><img
+                                src="./assets/images/plus-circle-fill.svg" class="icon" alt=" "> Add New Project</a>
+                    </li>
+                    <li class="nav-item pe-3">
+                        <a class="nav-link navLink" href="./dashboard.html"><img
+                                src="./assets/images/clipboard-data-fill.svg" class="icon" alt=" "> Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<!-- Notifications for user -->
-<div id="notificationDiv">
-    <div class="notificationMsgDiv">
-        <span id="notification" class="alert"></span>
-    </div>
-    <br>
-    <div class="notificationInputDiv">
-        <input type="text" id="notificationProjID" disabled>
-        <input type="text" id="notificationProjName" disabled>
-    </div>
-    <div class="notificationBtnsDiv">
-        <button class="notificationBtn" id="notificationAddNewBtn" style="display: none;">Add Another Project</button>
-        <br>
-        <button class="notificationBtn" id="notificationViewAlltn" style="display: none;">View All Projects</button>
-        <br>
-        <button class="notificationBtn" id="notificationContinueBtn" style="display: none;">Continue</button>
-        <br>
-        <button class="notificationBtn" id="notificationResetBtn" style="display: none;">Reset</button>
-    </div>
-</div>
+    <!-- Div for Edit Project Form -->
+    <div id="editProjectDiv">
 
-<!-- Div for Edit Project Form -->
-<div id="editProjectDiv">
-    <input id="editProjectID" style="display: none;" disabled></input>
-    <form id="editForm" class="projectForm">
-        <div class="splitDiv">
-            <label for="editProjectName">Project Name</label>
-            <input type="text" id="editProjectName" name="editProjectName" required>
-        </div>
-        <div class="splitDiv">
-            <label for="editProjectStartDate">Start Date</label>
-            <input type="date" id="editProjectStartDate" name="editProjectStartDate" required>
-        </div>
-        <div class="splitDiv">
-            <label for="editProjectEndDate">End Date</label>
-            <input type="date" id="editProjectEndDate" name="editProjectEndDate" required>
-        </div>
-        <div class="splitDiv">
-            <label for="editProjectPriority">Priority</label>
-            <select name="editProjectPriority" id="editProjectPriority">
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-        </div>
-        <div class="splitDiv">
-            <label for="editProjectStatus">Status</label>
-            <select name="editProjectStatus" id="editProjectStatus">
-                <option value="Not Started">Not Started</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
-            </select>
-        </div>
-        <div class="splitDiv">
-            <label for="editProjectAtRisk">At Risk</label>
-            <select name="editProjectAtRisk" id="editProjectAtRisk">
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-        <div class="splitDiv">
-            <label for="editProjectOwner">Owner</label>
-            <input type="text" id="editProjectOwner" required>
-        </div>
-        <label for="editProjectNotes">Notes</label>
-        <textarea name="" id="editProjectNotes" cols="30" rows="10" placeholder="Type here..."></textarea>
-        <button id="editProjectBtn">Save</button>
-        <button type="reset">Reset</button>
-    </form>
-    <br>
-    <span id="editFormErrorMsg"></span>
-</div>
+        <input id="editProjectID" style="display: none;" disabled></input>
 
- <script src="./assets/js/editProj.js"></script>
+        <form id="editForm" class="projectForm needs-validation" novalidate>
+
+            <div class="col-12 mb-4 text-center">
+                <div class="row">
+                    <div class="col-10">
+                        <h3 id="editProjIDHeading" class="heading2"></h3>
+                    </div>
+                    <div class=" col-2">
+                        <img src="./assets/images/info-circle-fill.svg"" type=" button"
+                            class="btn btn-secondary formInformation" data-bs-toggle="popover" data-bs-placement="right"
+                            data-bs-custom-class="formPopover" data-bs-title="Requirements"
+                            data-bs-content="All fields are required except project notes. The project name must be unique and the end date must be on or after the start date."
+                            id="formInfoPopover">
+                        </img>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="editProjectName" class="visually-hidden">Project Name</label>
+                <div class="input-group">
+                    <div class="input-group-text col-4">Project Name</div>
+                    <input type="text" class="form-control" name="editProjectName" id="editProjectName"
+                        placeholder="Project Name..." required>
+                    <div class="valid-feedback"></div>
+                    <div class="invalid-feedback">Please provide a unique project name.</div>
+                </div>
+                <div id="editProjectNameInvalid" class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="editProjectStartDate" class="visually-hidden">Start Date</label>
+                <div class="input-group">
+                    <div class="input-group-text col-4 text-center">Start Date</div>
+                    <input type="date" class="form-control" name="editProjectStartDate" id="editProjectStartDate"
+                        required>
+                    <div class="valid-feedback"></div>
+                    <div class="invalid-feedback">Please provide the project's start date.</div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="editProjectEndDate" class="visually-hidden">End Date</label>
+                <div class="input-group">
+                    <div class="input-group-text col-4 text-center">End Date</div>
+                    <input type="date" class="form-control" name="editProjectEndDate" id="editProjectEndDate" required>
+                    <div class="valid-feedback"></div>
+                    <div class="invalid-feedback">Please provide the project's end date.</div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="editProjectPriority" class="visually-hidden">Priority</label>
+                <div class="input-group">
+                    <div class="input-group-text col-4 text-center">Priority</div>
+                    <select name="editProjectPriority" id="editProjectPriority" class="form-select" required>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                    <div class="valid-feedback"></div>
+                    <div class="invalid-feedback">Please provide the project's priority level.</div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="editProjectStatus" class="visually-hidden">Status</label>
+                <div class="input-group">
+                    <div class="input-group-text col-4 text-center">Status</div>
+                    <select name="editProjectStatus" id="editProjectStatus" class="form-select" required>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <div class="valid-feedback"></div>
+                    <div class="invalid-feedback">Please provide the project's current status.</div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="editProjectAtRisk" class="visually-hidden">At Risk</label>
+                <div class="input-group">
+                    <div class="input-group-text col-4 text-center">At Risk?</div>
+                    <select name="editProjectAtRisk" id="editProjectAtRisk" class="form-select" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <div class="valid-feedback"></div>
+                    <div class="invalid-feedback">Please select yes if the project is at risk.</div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <label for="editProjectOwner" class="visually-hidden">Owner</label>
+                <div class="input-group">
+                    <div class="input-group-text col-4 text-center">Owner</div>
+                    <input type="text" class="form-control" list="editProjectOwnerOptions" name="editProjectOwner"
+                        id="editProjectOwner" placeholder="Project Owner..." required>
+                    <datalist id="editProjectOwnerOptions"></datalist>
+                    <div class="valid-feedback"></div>
+                    <div class="invalid-feedback">Please provide the project's owner. You can select from the list of
+                        current
+                        owners.</div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Write some notes..." id="editProjectNotes"
+                        maxlength="200"></textarea>
+                    <label for="editProjectNotes">Project Notes</label>
+                </div>
+            </div>
+
+            <span id="charCounter"></span>
+            <hr>
+
+            <div class="col-12 mt-2">
+                <button type="button" class="btn btn-md btn-outline-success fw-bold mb-2"
+                    id="editProjectBtn">Save</button>
+                <button type="reset" class="btn btn-outline-secondary fw-bold mb-2" id="editProjectResetBtn">Clear All
+                    Values</button>
+                <a id="editProjectCancelBtn"><button type="button"
+                        class="btn btn-outline-warning fw-bold mb-2">Cancel</button></a>
+            </div>
+
+        </form>
+
+        <!-- error message handling -->
+        <br>
+        <span id="editFormErrorMsg"></span>
+    </div>
+
+    <!-- bootstrap js bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- application script -->
+    <script src="./assets/js/editProj.js"></script>
+
 </body>
 
 </html>
