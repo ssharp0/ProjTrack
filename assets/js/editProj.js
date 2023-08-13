@@ -346,6 +346,22 @@ const displayFormPage = () => {
  // enable boostrap popover
  enablePopover()
 
+ // count text area text
+ countTextChar()
+
+}
+
+/**
+ * Function to count the input text in text area form
+ * Takes no parameters
+ * Returns nothing
+ */
+const countTextChar = () => {
+ projNotesEl = document.getElementById("editProjectNotes")
+ projNotesAllowedLen = projNotesEl.maxLength
+ projNotesLen = projNotesEl.value.length
+ charCounterEl = document.getElementById("charCounter")
+ charCounterEl.innerHTML = `Characters Remaining: ${projNotesAllowedLen - projNotesLen}`
 }
 
 /*
@@ -363,6 +379,10 @@ editProjectResetBtn.addEventListener("click", resetFormValues)
 // Event listener to cancel form entry
 let editProjectCancelBtn = document.getElementById("editProjectCancelBtn")
 editProjectCancelBtn.addEventListener("click", navDashboard)
+
+// Event listener to count character input in text area
+let editProjectNotesTxtArea = document.getElementById("editProjectNotes")
+editProjectNotesTxtArea.addEventListener("keyup", countTextChar)
 
 // Display project details for editing
 document.addEventListener("DOMContentLoaded", displayFormPage)
