@@ -7,6 +7,8 @@
 	font-weight: bold;
 	margin-top: 10%;
 	margin-bottom: 1%;
+	box-shadow: 0 5px 5px rgba(55, 71, 74, 0.35);
+	background-color: white;
 }
 
 .projSummary {
@@ -119,11 +121,18 @@
 
 /* Formatting for dashboard search and buttons div */
 
-.dashboardButtonsDiv {
+.dashboardBtnsDiv {
 	margin-top: 1%;
 	margin-bottom: 1%;
 	margin-right: 10%;
 	margin-left: 10%;
+	background-color: white;
+	box-shadow: 0 7px 7px rgba(55, 71, 74, 0.35);
+	opacity: 90%;
+}
+
+#searchProjectVal {
+	outline: solid green 2px;
 }
 
 /* Formatting for Table Displaying Projects */
