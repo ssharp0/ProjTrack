@@ -125,10 +125,17 @@ const searchProject = () => {
  const savedProjects = getAllProjects()
  const tgtIndex = savedProjects.findIndex(project => project.projectName.toLowerCase() === searchVal.toLowerCase())
 
+ // check if project exists, else provide feedback
  if (tgtIndex !== -1 && searchVal) {
   viewProject(tgtIndex)
+ } else if (!savedProjects.length) {
+   msg = "There are no projects to search!"
+   localStorage.setItem("feedbackMsg", msg)
+   location.reload()
  } else {
-  alert("The project cannot be found!")
+  msg = "The project cannot be found!"
+  localStorage.setItem("feedbackMsg", msg)
+  location.reload()
  }
 
 }
@@ -752,6 +759,42 @@ const genPrevMonth = () => {
   generateCalendar()
 }
 
+/**
+ * Function to generate the list of project names for dropdown
+ * Takes no parameters
+ * Returns nothing
+ */
+const genDataListProjNames = () => {
+
+  // get all saved projects and initialize an empty array
+  let savedProjects = getAllProjects()
+  let names = []
+
+  // for each saved project, add the projName to the array (not duplicated)
+  savedProjects.forEach(project => {
+    projName = project['projectName']
+    if (names.indexOf(projName) === -1) {
+      names.push(projName)
+    }
+  })
+
+  // sort the array a-z
+  names.sort()
+
+  // get the elements to update on the form
+  const projectName = document.getElementById("searchProjectVal")
+  const projectNameOptions = document.getElementById("searchProjectNameOptions")
+  projectName.innerHTML = ''
+
+  // for each projName, insert the option html
+  names.forEach(projName => {
+    let optionElement = document.createElement("option")
+    optionElement.setAttribute("value", projName)
+    projectNameOptions.appendChild(optionElement)
+  })
+
+}
+
 
 /**
  * Function to display dashboard by calling methods
@@ -768,6 +811,7 @@ const displayDashboardPage = () => {
   genProjByStatusChart()
   genProjByMonthChart()
   generateCalendar()
+  genDataListProjNames()
 
 }
 
