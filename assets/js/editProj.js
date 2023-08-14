@@ -239,7 +239,7 @@ const submitEdit = () => {
  // prevent the default and navigate back
  event.preventDefault()
  window.location.href = "./dashboard.html"
-   
+
   }
  }, false)
 }
@@ -285,6 +285,9 @@ const validateName = (name, elementID) => {
    if (Object.hasOwnProperty.call(projects, key)) {
     let projName = projects[key].projectName
     let projID = projects[key].projectID
+    if (name.toLowerCase() === projName.toLowerCase() && currentProjID === projID) {
+     return true
+    }
     // if the updated name matches with another existing project then display error
     if (name.toLowerCase() === projName.toLowerCase() && currentProjID !== projID) {
      const errorMsgSpan = document.getElementById(elementID)
@@ -307,6 +310,42 @@ const validateName = (name, elementID) => {
  */
 const navDashboard = () => {
  window.location.href = "./dashboard.html"
+}
+
+/**
+ * Function to generate the list of project owners for dropdown
+ * Takes no parameters
+ * Returns nothing
+ */
+const genDataListEditProjOwners = () => {
+
+ // get all saved projects and initialize an empty array
+ let savedProjects = getAllProjects()
+ let owners = []
+
+ // for each saved project, add the owner to the array (not duplicated)
+ savedProjects.forEach(project => {
+  owner = project['projectOwner']
+  if (owners.indexOf(owner) === -1) {
+   owners.push(owner)
+  }
+ })
+
+ // sort the array a-z
+ owners.sort()
+
+ // get the elements to update on the form
+ const projectOwner = document.getElementById("editProjectOwner")
+ const projectOwnerOptions = document.getElementById("editProjectOwnerOptions")
+ projectOwner.innerHTML = ''
+
+ // for each owner, insert the option html
+ owners.forEach(owner => {
+  let optionElement = document.createElement("option")
+  optionElement.setAttribute("value", owner)
+  projectOwnerOptions.appendChild(optionElement)
+ })
+
 }
 
 /**
@@ -342,6 +381,9 @@ const displayFormPage = () => {
 
  // remove any exisitng feedback
  removefeedbackMsg()
+
+ // generate list of owners for dropdown
+ genDataListEditProjOwners()
 
  // enable boostrap popover
  enablePopover()
