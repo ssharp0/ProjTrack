@@ -146,6 +146,8 @@ const generateRandomSeedData = () => {
  }
 
  // reload the window to display all projects
+ msg = `${numberOfProj} projects have been randomly created!`
+ localStorage.setItem("feedbackMsg", msg)
  location.reload()
 
 }
@@ -159,24 +161,81 @@ const getRandomProjName = () => {
 
  // array of random project names
  const randomProjNamesList = [
-  "Create Repo",
-  "Setup Server",
-  "Setup DB",
-  "Test CRUD",
-  "Configure Testing",
-  "Update Documentation",
-  "Review Findings",
-  "Update Tracker",
-  "Fix Bugs",
-  "End To End Integration",
-  "Connect Modules"
+  "Create",
+  "Repo",
+  "Setup",
+  "Server",
+  "DB",
+  "Test",
+  "CRUD",
+  "Configure",
+  "Testing",
+  "Update",
+  "Document",
+  "Review",
+  "Findings",
+  "Tracker",
+  "Fix",
+  "Bugs",
+  "B2B",
+  "Integration",
+  "Connect",
+  "Modules",
+  "Prepare",
+  "Sprint",
+  "Code",
+  "Audit",
+  "Ship",
+  "Product",
+  "IDE"
  ]
 
- // get a random value from list and return it
- let randomValue = getRandom(randomProjNamesList)
+ // initialize the random length
+ let randomValue = ''
+ let tempValue = ''
+ let minLen = 1
+ let maxLen = 4
+ let randLen = Math.floor(Math.random() * (maxLen - minLen + 1) + minLen)
+
+ // generate the random string of words
+ for (let i = 0; i < randLen; i++) {
+  tempValue = getRandom(randomProjNamesList)
+  if (i!= 0) {
+   randomValue = randomValue + ' ' + tempValue
+  } else {
+   randomValue = tempValue
+  }
+ }
+
+ // check if name exists to adjust it, return the random value
+ randomValue = checkDuplicateName(randomValue)
  return randomValue
 
 }
+
+/**
+ * Function to check if random name already exists, add random digit if so
+ * @param {String} randomValue random value string
+ * @return {String} random value
+ */
+const checkDuplicateName = (randomValue) => {
+ // get all the saved projects
+ let savedProjects = getAllProjects()
+ // for each project see if the name already exists, if so add random number to end
+ savedProjects.forEach(project => {
+  if (project.projectName === randomValue) {
+   while (project.projectName === randomValue) {    
+    let minNum = 1
+    let maxNum = 1000
+    let randLen = Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
+    randomValue += randLen
+   }
+  }
+ })
+ // return the random value
+ return randomValue
+}
+
 
 /**
  * Function to get random dates
