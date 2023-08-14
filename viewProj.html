@@ -16,7 +16,7 @@
 <body>
 
   <!-- Header Bar -->
-  <nav class="navbar navbar-expand-lg fixed-top appNav shadow-lg p-3">
+  <nav class="navbar navbar-expand-lg appNav shadow-lg p-3">
     <div class="container-fluid">
       <a href="./index.html" class="navbar-brand navBrand">ProjTrack</a>
       <button class="navbar-toggler navBarToggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarNav"
@@ -44,123 +44,133 @@
   </nav>
 
   <!-- Div for view Project Form -->
-  <div id="viewProjectDiv">
-
-    <form id="viewForm" class="projectForm needs-validation" novalidate>
-
-      <input id="viewProjectID" style="display: none;" disabled>
-
-      <div class="col-12 mb-4 text-center">
-        <div class="row">
-          <div class="col-10">
-            <h3 id="viewProjIDHeading"></h3>
+  <div class="container mt-5 mb-2">
+    <div id="viewProjectDiv" class="border rounded-3 p-3 bg-white">
+  
+      <form id="viewForm" class="projectForm needs-validation" novalidate>
+  
+        <input id="viewProjectID" style="display: none;" disabled>
+  
+        <div class="col-12 mb-4 text-center">
+          <div class="row">
+            <div class="col-10">
+              <h3 id="viewProjIDHeading"></h3>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <label for="viewProjectName" class="visually-hidden">Project Name</label>
-        <div class="input-group">
-          <div class="input-group-text col-4">Project Name</div>
-          <input type="text" class="form-control" name="viewProjectName" id="viewProjectName"
-            placeholder="Project Name..." disabled required>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback">Please provide a unique project name.</div>
+  
+        <div class="col-12 mb-4">
+          <label for="viewProjectName" class="visually-hidden">Project Name</label>
+          <div class="input-group">
+            <div class="input-group-text col-4">Project Name</div>
+            <input type="text" class="form-control" name="viewProjectName" id="viewProjectName"
+              placeholder="Project Name..." disabled required>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please provide a unique project name.</div>
+          </div>
+          <div id="viewProjectNameInvalid" class="invalid-feedback"></div>
         </div>
-        <div id="viewProjectNameInvalid" class="invalid-feedback"></div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <label for="viewProjectStartDate" class="visually-hidden">Start Date</label>
-        <div class="input-group">
-          <div class="input-group-text col-4 text-center">Start Date</div>
-          <input type="date" class="form-control" name="viewProjectStartDate" id="viewProjectStartDate" disabled
-            required>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback">Please provide the project's start date.</div>
-        </div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <label for="viewProjectEndDate" class="visually-hidden">End Date</label>
-        <div class="input-group">
-          <div class="input-group-text col-4 text-center">End Date</div>
-          <input type="date" class="form-control" name="viewProjectEndDate" id="viewProjectEndDate" disabled required>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback">Please provide the project's end date.</div>
-        </div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <label for="viewProjectPriority" class="visually-hidden">Priority</label>
-        <div class="input-group">
-          <div class="input-group-text col-4 text-center">Priority</div>
-          <select name="viewProjectPriority" id="viewProjectPriority" class="form-select" disabled required>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback">Please provide the project's priority level.</div>
-        </div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <label for="viewProjectStatus" class="visually-hidden">Status</label>
-        <div class="input-group">
-          <div class="input-group-text col-4 text-center">Status</div>
-          <select name="viewProjectStatus" id="viewProjectStatus" class="form-select" disabled required>
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-          </select>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback">Please provide the project's current status.</div>
-        </div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <label for="viewProjectAtRisk" class="visually-hidden">At Risk</label>
-        <div class="input-group">
-          <div class="input-group-text col-4 text-center">At Risk?</div>
-          <select name="viewProjectAtRisk" id="viewProjectAtRisk" class="form-select" disabled required>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback">Please select yes if the project is at risk.</div>
-        </div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <label for="viewProjectOwner" class="visually-hidden">Owner</label>
-        <div class="input-group">
-          <div class="input-group-text col-4 text-center">Owner</div>
-          <input type="text" class="form-control" list="viewProjectOwnerOptions" name="viewProjectOwner"
-            id="viewProjectOwner" placeholder="Project Owner..." disabled required>
-          <datalist id="viewProjectOwnerOptions"></datalist>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback">Please provide the project's owner. You can select from the list of current
-            owners.
+  
+        <div class="col-12 mb-4">
+          <label for="viewProjectStartDate" class="visually-hidden">Start Date</label>
+          <div class="input-group">
+            <div class="input-group-text col-4 text-center">Start Date</div>
+            <input type="date" class="form-control" name="viewProjectStartDate" id="viewProjectStartDate" disabled
+              required>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please provide the project's start date.</div>
           </div>
         </div>
-      </div>
-
-      <div class="col-12 mb-4">
-        <div class="form-floating">
-          <textarea class="form-control" placeholder="Write some notes..." id="viewProjectNotes" maxlength="200"
-            disabled></textarea>
-          <label for="viewProjectNotes">Project Notes</label>
+  
+        <div class="col-12 mb-4">
+          <label for="viewProjectEndDate" class="visually-hidden">End Date</label>
+          <div class="input-group">
+            <div class="input-group-text col-4 text-center">End Date</div>
+            <input type="date" class="form-control" name="viewProjectEndDate" id="viewProjectEndDate" disabled required>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please provide the project's end date.</div>
+          </div>
         </div>
-      </div>
+  
+        <div class="col-12 mb-4">
+          <label for="viewProjectPriority" class="visually-hidden">Priority</label>
+          <div class="input-group">
+            <div class="input-group-text col-4 text-center">Priority</div>
+            <select name="viewProjectPriority" id="viewProjectPriority" class="form-select" disabled required>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please provide the project's priority level.</div>
+          </div>
+        </div>
+  
+        <div class="col-12 mb-4">
+          <label for="viewProjectStatus" class="visually-hidden">Status</label>
+          <div class="input-group">
+            <div class="input-group-text col-4 text-center">Status</div>
+            <select name="viewProjectStatus" id="viewProjectStatus" class="form-select" disabled required>
+              <option value="Not Started">Not Started</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please provide the project's current status.</div>
+          </div>
+        </div>
+  
+        <div class="col-12 mb-4">
+          <label for="viewProjectAtRisk" class="visually-hidden">At Risk</label>
+          <div class="input-group">
+            <div class="input-group-text col-4 text-center">At Risk?</div>
+            <select name="viewProjectAtRisk" id="viewProjectAtRisk" class="form-select" disabled required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please select yes if the project is at risk.</div>
+          </div>
+        </div>
+  
+        <div class="col-12 mb-4">
+          <label for="viewProjectOwner" class="visually-hidden">Owner</label>
+          <div class="input-group">
+            <div class="input-group-text col-4 text-center">Owner</div>
+            <input type="text" class="form-control" list="viewProjectOwnerOptions" name="viewProjectOwner"
+              id="viewProjectOwner" placeholder="Project Owner..." disabled required>
+            <datalist id="viewProjectOwnerOptions"></datalist>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please provide the project's owner. You can select from the list of current
+              owners.
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-12 mb-4">
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Write some notes..." id="viewProjectNotes" maxlength="200"
+              disabled></textarea>
+            <label for="viewProjectNotes">Project Notes</label>
+          </div>
+        </div>
+  
+        <button id="viewProjectBtn" class="btn btn-outline-warning fw-bold mb-2">Exit</button>
+  
+      </form>
+  
+    </div>
 
-      <button id="viewProjectBtn" class="btn btn-outline-warning fw-bold mb-2">Exit</button>
-
-    </form>
 
   </div>
 
+  <!-- page footer -->
+  <div class="mt-3 text-center pageFooter fixed-bottom">
+      <p class="p-2">ProjTrack @2023</p>
+  </div>
+
   <script src="./assets/js/viewProj.js"></script>
+  
 </body>
 
 </html>
