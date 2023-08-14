@@ -6,6 +6,7 @@ body {
  min-height: 100vh;
  letter-spacing: 0.1em;
  font-size: 0.95em;
+	color: #011936;
 }
 
 /* FORMATTING FOR NAV BAR */
@@ -98,26 +99,14 @@ ul {
 
 #notificationDiv {
 	margin-top: 10%;
-	background-color: white !important;
-	width: 50%;
-	border: solid green 2px !important;
 	box-shadow: 0 7px 7px rgba(55, 71, 74, 0.35);
- position: absolute;
- text-align: center;
- align-items: center;
- border: solid white 2px;
- left: 5px;
- right: 5px;
- top: auto;
  margin-left: auto;
  margin-right: auto;
  width: 50%;
- padding: 25px;
  color: white;
  display: none;
  opacity: 1;
  transition: opacity 1s;
- border-radius: 5px;
 }
 
 
@@ -143,6 +132,10 @@ ul {
 	font-size: 1.5rem;
 }
 
+.modal-title {
+	color: #011936;
+}
+
 
 /* FORMATTING FOR NEW PROJECT INPUTS */
 
@@ -152,20 +145,10 @@ ul {
 	background-color: #d5fefd;
  background-image: linear-gradient(315deg, lightgray 10%, white 0%);
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	border-radius: 2%;
-	position: fixed;
-	margin-top: 5%;
-	top:  50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	padding: 30px;
-	width: 55%;
+ margin-left: auto;
+ margin-right: auto;
+	width: 50%;
 	box-shadow: 0 7px 7px rgba(55, 71, 74, 0.35);
-	-webkit-border-radius: 2%;
-	-moz-border-radius: 2%;
-	-ms-border-radius: 2%;
-	-o-border-radius: 2%;
 }
 
 textarea {
@@ -181,27 +164,39 @@ select {
 	cursor: pointer;	
 }
 
+.formInformation {
+	background-color: black;
+	border: white 2px solid;
+}
+
 /* FORMATTING FOR HOME PAGE */
 
 .projectHeader {
 	background-color: #011936;
 	color: white;
-	text-align: center;
-	margin-top: 10%;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
+	box-shadow: 0 7px 7px rgba(55, 71, 74, 0.35);
 }
 
+/* GENERAL FORMATTING */
+
+.contentDivider {
+		width: 100%;
+		height: 2rem;
+		background-color: rgba(201, 124, 124, 0.1);
+		box-shadow: inset 0 .2em 1em rgba(0, 0, 0, .1), inset 0 .1em .3em rgba(55, 71, 74, 0.35);
+}
+
+hr {
+	border: solid black 2px;
+}
 
 /* FORMATTING FOR FOOTER */
 
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: lightgray;
-  color: black;
-  text-align: center;
+.pageFooter {
+	width: 100%;
+	height: 3rem;
+	color: white;
+	background-color: #011936;
 }
